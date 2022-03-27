@@ -1,0 +1,228 @@
+.home-header-container{
+    width: 100%;
+    height: 80px;
+    padding: 0 20px;
+    // background-color: rgba(34,193,195,0.5);
+    background-image: linear-gradient(#3ecfd1, #d4dfe5);
+
+    color: white;
+    .home-header-content{
+        width: 100%;  
+        height: 100%;
+        display: flex;
+        .left-content{
+            width: 25%;
+            display: flex;
+            align-items: center;
+            .header-logo{
+                background: url('../../assets/logo2.png');
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                height: 70px;
+                width: 70px;
+                position: absolute;
+                left: 100px;
+                border-radius: 50%;
+                box-shadow: 1px 1px 2px grey;
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+            i{
+                font-size: 25px;
+                color: gray;
+                cursor: pointer;
+            }
+        }
+        .center-content{
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-shadow: 1px 1px 1px #333;
+            .child-content{
+                .sub-title{
+                    font-weight: 400;
+                    font-size: 14px;
+                }
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+            b{
+                font-size: 24px;
+            }
+            .child-content {
+                text-align: center;
+            }
+        }
+        .right-content{
+            width: 25%;
+            display: flex;
+            align-items: center; 
+            justify-content: flex-end;
+            .btn-login{
+                width: 140px;
+                height: 40px;
+                background-color: #22c1c3;
+                color: white;
+                border: none;
+                border-radius: 2px;
+                box-shadow: 1px 1px 2px grey;
+                position: absolute;
+                right: 100px;
+                &:hover{
+                    background-color: white;
+                    color: #22c1c3;
+                    border: 0.5px solid #22c1c3;
+                }
+            }
+            .show-infor{
+                font-size: 20px;
+                position: absolute;
+                right: 130px;
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+            .btnoverlow{
+                display: none;
+            }
+            .btn-logout-patient{
+                position: absolute;
+                right: 90px;
+                font-size: 24px;
+                color: white;
+                top: 14px;
+                &:hover{
+                    cursor: pointer;
+                    right: 36px;
+                }
+                ul{
+                    background-color: #e9f0f6;
+                    position: relative;
+                    right: 42px;
+                    height: 72px;
+                    width: 136px;
+                    text-align: -webkit-left;
+                    animation: headerNotifyGrowth ease 0.5s;
+                    display: none;
+                    transform-origin: top right;
+                    border: 1px solid #D3D3D3;
+                    li{
+                        list-style: none;
+                        
+                    }
+                }
+            }
+            .btn-logout-patient:hover .testshow{
+                display: block;
+                
+            }
+
+        }
+    }
+}
+@keyframes headerNotifyGrowth{
+    from{
+        transform: scale(0);
+    }
+    to{
+        transform: scale(1);
+    }
+}
+.home-header-banner{
+    background: url('../../assets/pexels-photo-2253879.jpeg');
+    // background-color: linear-gradient(rgba(0,0,0,25),rgba(255,255,255,0.1));
+    height: 600px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    .content-up{
+        height: 50%;
+        padding-top: 15px;
+        .title1{
+            text-align: center;
+            font-size: 40px;
+            text-shadow: 1px 1px 1px #333 ;
+            color: white;
+            margin-bottom: 15px;
+            margin-top: 40px;
+            font-family: 'Font Awesome 5 Free'
+        }
+        .title2{
+            text-align: center;
+            font-size: 40px;
+            text-shadow: 1px 1px 1px #333 ;
+            color: white;
+            margin-bottom: 15px;
+            font-family: 'Font Awesome 5 Free'
+        }
+        .search{
+            width: fit-content;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            padding: 10px;
+            border-radius: 25px;
+            background: #3ecfd1;
+            font-size: 20px;
+            color: white;
+            i{
+                margin: 0 5px;
+            }
+            input{
+                height: 30px;
+                width: 360px;
+                background: transparent;
+                border: none;
+                outline: none;
+                color: white;
+            }
+        }
+    }
+    .content-down{
+        height: 50%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        background-image: linear-gradient(rgba(255,255,255,0),rgba(255,255,255,0.9),rgba(255,255,255,1));
+        .options{
+            display: flex;
+            text-align: center;
+            justify-content: space-around;
+            .option-child{
+                width: 100px;
+                margin: 0 60px;
+                .icon-child{
+                    background: white;
+                    width: 40px;
+                    height: 40px;
+                    padding: 10px;
+                    border-radius: 50%;
+                    text-align: center;
+                    margin: 0 auto;
+                    i{
+                        color: #22c1c3;
+                        font-size: 20px;
+                        &:hover{
+                            cursor: pointer;
+                        }
+                    }
+                }
+                .text-child{
+                    font-size: 20px;
+                    font-weight: 500;
+                    &:hover{
+                        color: #22c1c3;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}

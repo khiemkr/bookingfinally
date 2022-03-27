@@ -1,0 +1,110 @@
+.specialty-container{
+    .specialty-banner{
+        width: 100%;
+        height: 200px; 
+        background-image: url('../../../assets/121042-than-kinh.jpg') ;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        .specialty-banner-opacity{
+            background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.9));
+            height: 100%;
+            .specialty-intro{
+                width: 1335px;
+                margin: 0 auto;
+                .specialty-title{
+                    font-size: 40px;
+                    font-family: auto;
+                }
+                .specialty-description{
+                    font-size: 20px;
+                    font-family: auto;
+                }
+            }
+        }
+    }
+    .specialty-content{
+        width: 1335px;
+        margin: 20px auto;
+        .specialty-content-intro{
+            p{
+                font-size: 24px;
+                height: 40px;
+                color: #22c1c3;
+                border-bottom: 1px solid #22c1c3;
+            }
+        }
+        .specialty-content-item{
+            background-color: #e9f0f6;
+            box-shadow: 0px 2px 2px rgb(192, 189, 189);
+            width: 100%;
+            margin: 20px 0;
+            padding: 20px 0;
+            border-radius: 4px;
+            .specialty-content-item-info{
+                display: flex;
+                border-right: 0.5px solid gray;
+
+                .specialty-content-item-info-avt{
+                    margin: 8px;
+                    width: 30%;
+                    height: 115px;
+                    background-image: url('../../../assets/155850-pgs-nguyen-tho-lo.jpg');
+                    background-position: center;
+                    border-radius: 50%;
+                }
+                .specialty-content-item-info-description{
+                    span{
+                        color: #22c1c3;
+                        font-size: 20px;
+                    }
+                    p{
+                        font-size: 14px;
+                        color: grey;
+                    }
+                }
+            }
+            .specialty-content-item-celender{
+                .specialty-content-item-celender-header{
+                    i{
+                        font-size: 16px;
+                        color: #22c1c3;
+                    }
+                    span{
+                        font-size: 16px;
+                        
+                    }
+                }
+                .specialty-content-item-celender-content{
+                    border-bottom: 0.5px solid gray;
+                    margin-bottom: 4px;
+                    .specialty-content-item-celender-content{
+                        width: 137px;
+                        height: 24px;
+                        background-color: white;
+                        box-shadow: 5px 5px 10px rgb(192, 189, 189);
+                        border-radius: 4px;
+                        p{
+                            margin: 10px;
+                        }
+                    }
+                }
+                .specialty-content-item-celender-price{
+                    display: flex;
+                    span{
+                        margin-right: 20px;
+                        color: #22c1c3;
+                    }
+                }
+                .specialty-content-item-celender-btn-detail{
+                    height: 32px;
+                    width: 140px;
+                    outline: none;
+                    border: none;
+                    background-color: #22c1c3;
+                    border-radius: 4px;
+                }
+            }
+        }
+    }
+}
