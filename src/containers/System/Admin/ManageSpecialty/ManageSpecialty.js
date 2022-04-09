@@ -39,7 +39,7 @@ class ManageSpecialty extends Component {
     handleSaveUser = () => {
         let isValid = this.checkValidateInput();
         if (isValid === false) return;
-
+ 
         let { action } = this.state;
         console.log(this.state)
         this.props.createSpeciatly({
@@ -200,7 +200,7 @@ class ManageSpecialty extends Component {
             </div>
             </div >
         )
-    }
+    } 
 }
 const mapStateToProps = state => {
     return {

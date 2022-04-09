@@ -84,7 +84,6 @@ class Login extends Component {
                 }
                 if (data && data.success === true) {
                     this.props.userLoginSuccess(data.user);
-
                 }
             }
             if((data && data.message === 'email invalid')){

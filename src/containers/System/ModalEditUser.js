@@ -50,7 +50,7 @@ class ModalEditUser extends Component {
             }
         }
         return true
-    }
+    } 
     handleEditUSer = () => {
         let isvalid = this.checkValidateInput();
         if(isvalid === true){
@@ -100,7 +100,7 @@ class ModalEditUser extends Component {
                                     <option value="1">Male</option>
                                     <option value="0">Female</option>
                                     </select>
-                                </div>
+                                </div> 
                                 <div className="form-group col-md-12">
                                     <label for="inputZip">Role</label>
                                     <select name="roleId" className="form-control">

@@ -6,7 +6,7 @@ import Header from "../containers/Header/Header";
 import ManagaDoctor from "../containers/System/Admin/ManagaDoctor";
 class Doctor extends Component{
     render(){
-        const {isLoggedIn} = this.props;
+        const {isLoggedIn} = this.props; 
         return (
             <React.Fragment>
                 {isLoggedIn && <Header/>}

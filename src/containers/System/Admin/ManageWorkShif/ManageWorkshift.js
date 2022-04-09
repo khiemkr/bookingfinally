@@ -5,6 +5,7 @@ import './ManageWorkshift.scss';
 import * as actions from '../../../../store/actions';
 import { CRUD_ACTIONS, CommonUtils } from '../../../../utils';
 import DatePicker from "../../../../components/Input/DatePicker";
+import { getAllDoctorTime } from "../../../../services/userService";
 import Select from 'react-select';
 import moment from "moment";
 class ManageWorkshift extends Component {
@@ -12,18 +13,31 @@ class ManageWorkshift extends Component {
         super(props)
         this.state = {
             selectedDoctor: '',
-            selectedTime:'',
+            selectedTime: '',
+            selecteddate: '',
             listDoctors: [],
-            listTime:[],
+            listTime: [],
+            listDate: [],
             hasOldData: false,
             currentDate: '',
-            
+            arrDoctorTime: []
         }
-    } 
-    componentDidMount() {
+    }
+    async componentDidMount() {
         this.props.fetAllDoctorsRedux();
-        this.props.fetchAllScheduleHoursRedux();;
+        this.props.fetchAllScheduleHoursRedux();
         this.props.fetAllExaminationRedux();
+        await this.getAllDoctorTimeRedux();
+    }
+
+
+    getAllDoctorTimeRedux = async () => {
+        let response = await getAllDoctorTime();
+        if (response && response.success === true) {
+            this.setState({
+                arrDoctorTime: response.result
+            })
+        }
     }
     buildDataInputSelectDoctor = (inputData) => {
         let result = [];
@@ -32,7 +46,7 @@ class ManageWorkshift extends Component {
                 let object = {};
                 object.label = `${item.name}`;
                 object.value = item.idStaff;
-                result.push(object)  
+                result.push(object)
             })
         }
         return result
@@ -44,8 +58,22 @@ class ManageWorkshift extends Component {
                 let object = {};
                 object.label = `${item.slotTime}`;
                 object.value = item.idTime;
+                object.date = `${item.currentDate}`
                 result.push(object)
-                
+
+            })
+        }
+        return result
+    }
+    buildDataInputSelectDate = (inputData) => {
+        let result = [];
+        if (inputData && inputData.length > 0) {
+            inputData.map((item, index) => {
+                let object = {};
+                object.label = `${item.currentDate}`
+                object.value = item.idTime;
+                result.push(object)
+
             })
         }
         return result
@@ -57,44 +85,47 @@ class ManageWorkshift extends Component {
                 listDoctors: dataSelectDoctor
             })
         }
-        if(prevProps.allExamination !== this.props.allExamination){
+        if (prevProps.allExamination !== this.props.allExamination) {
             let dataSelectExamination = this.buildDataInputSelectExamination(this.props.allExamination)
             this.setState({
-                listTime: dataSelectExamination
+                listTime: dataSelectExamination,
             })
+            console.log(dataSelectExamination);
+        }
+        if (prevProps.allExamination !== this.props.allExamination) {
+            let dataSelectDate = this.buildDataInputSelectDate(this.props.allExamination)
+            this.setState({
+                listDate: dataSelectDate
+            })
+            console.log(dataSelectDate[1].label);
         }
     }
     handleChangeDoctor = async (selectedDoctor) => {
         this.setState({
             selectedDoctor,
         })
-
     }
     handleChangeTime = async (selectedTime) => {
         this.setState({
             selectedTime
         })
+    }
+    handleChangeDate = async (selecteddate) => {
+        this.setState({
+            selecteddate
+        })
 
     }
-    handleOnChangeDesc = (e) => {
-        this.setState({
-            description: e.target.value
-        })
-    }
-    handleOnchageDatePicker = (date) => {
-        this.setState({
-            currentDate: date[0]
-        }) 
-    }
     handleSaveUser = () => {
-            this.props.createNewDoctorTime({
-                idStaff: this.state.selectedDoctor.value,
-                idTime: this.state.selectedTime.value,
-            })
+        this.props.createNewDoctorTime({
+            idStaff: this.state.selectedDoctor.value,
+            idTime: this.state.selectedTime.value,
+            date: this.state.selecteddate.label
+        })
         console.log(this.state.image)
     }
-    render() { 
-        console.log(this.state.selectedDoctor.value)
+    render() {
+        let arrDoctorTime = this.state.arrDoctorTime
         return (
             <div className='user-redux-container'>
                 <div className="title" >
@@ -103,7 +134,7 @@ class ManageWorkshift extends Component {
                 <div className='user-redux-body'>
                     <div className='container'>
                         <div className='row'>
-                            <div className='col-4'>
+                            <div className='col-4'> 
                                 <label>Bac si</label>
                                 <Select
                                     value={this.state.selectedDoctor}
@@ -121,11 +152,10 @@ class ManageWorkshift extends Component {
                             </div>
                             <div className='col-4'>
                                 <label>Ngay Kham benh</label>
-                                <DatePicker
-                                    onChange={this.handleOnchageDatePicker}
-                                    className='form-control'
-                                    value={this.state.currentDate[0]}
-                                    minDate={new Date()}
+                                <Select
+                                    value={this.state.selecteddate}
+                                    onChange={this.handleChangeDate}
+                                    options={this.state.listDate}
                                 />
                             </div>
                             <div className='col-12 mt-3'>
@@ -145,18 +175,26 @@ class ManageWorkshift extends Component {
                                         <tr >
                                             <th>Khung Gio</th>
                                             <th>Bac Si</th>
+                                            <th>Ngay Kham</th>
                                             <th>Tac vu</th>
 
-                                        </tr>
-                                        <tr>
-                                            <td>2:00PM - 3:00PM</td>
-                                            <td>Nguyen Phuc Thinh</td>
-                                            <td>
-                                                <button className='btn-edit'><i className='fas fa-pencil-alt'></i></button>
-                                                <button className='btn-delete' ><i className='fas fa-trash'></i></button>
 
-                                            </td>
                                         </tr>
+                                        {
+                                            arrDoctorTime && arrDoctorTime.map((item, index) => {
+                                                return (
+                                                    <tr key={index}>
+                                                        <td>{item.slotTime}</td>
+                                                        <td>{item.name}</td>
+                                                        <td>{item.date}</td>
+                                                        <td>
+                                                        <button className='btn-edit'><i className='fas fa-pencil-alt'></i></button>
+                                                <button className='btn-delete' ><i className='fas fa-trash'></i></button>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })
+                                        }
                                     </tbody>
                                 </table>
                             </div>

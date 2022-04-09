@@ -6,7 +6,7 @@ export const adminMenu = [
                 name: 'Danh sách người dùng', link: '/system/user-manage'
             }, 
             {
-                name: 'Thêm mới người dùng', link: '/system/user-redux'
+                name: 'Thêm mới người dùng', link: '/system/user-redux' 
             },
             {
                name: 'Thêm thông tin bác sĩ', link: '/system/manage-doctor'
@@ -58,7 +58,7 @@ export const adminMenu = [
           
         ]
     },
-];
+]; 
 export const DoctorMenu = [
     { //quan li nguoi dung
         name: 'Thoong tin cong tac',

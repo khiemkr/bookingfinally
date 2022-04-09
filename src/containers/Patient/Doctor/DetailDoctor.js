@@ -1,26 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import HomeHeader from '../../HomePage/HomeHeader';
-import './DetailDoctor.scss'
+import './DetailDoctor.scss';
+import * as actions from '../../../store/actions';
 import { getDetailInfoDoctor } from '../../../services/userService'
 import HomeFooter from '../../HomePage/Section/HomeFooter';
 import Booking from '../Booking/Booking';
-import { getAllExamination } from '../../../services/userService'
-import { withRouter } from 'react-router'
+import { getAllExamination, getOneDoctorTime,getAllDayDoctor,getAllTimeInDayDoctor } from '../../../services/userService'
+import { withRouter } from 'react-router';
+import Select from 'react-select';
+
 class DetailDoctor extends Component {
 
-    constructor(props) {
+    constructor(props) { 
         super(props);
         this.state = {
-            detailDoctor: {}
+            id: '',
+            selecteDay:'',
+            detailDoctor: {},
+            listTimeOfDoctor: [],
+            listAllDayDoctor:[]
         }
     }
-    handleShow = () => {
-        this.props.history.push(`/booking`)
+    handleShow = async (patient,id,idTime,date) => {
+        await this.props.history.push(`/booking/${patient[0].idPatient ? patient[0].idPatient : patient[0].idPatient}/${id}/${idTime}/${date}`)
+    }
+    handleShowLoginPage = () => {
+        this.props.history.push(`/login`)
     }
     async componentDidMount() {
-        await this.getAllExamination();
-        console.log(this.props)
+        this.props.fetAllDayDoctorRedux(this.props.match.params.id);
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
             let id = this.props.match.params.id;
             let res = await getDetailInfoDoctor(id);
@@ -29,27 +38,54 @@ class DetailDoctor extends Component {
                     detailDoctor: res.result[0]
                 })
             }
+            let resOneDoctorTime = await getOneDoctorTime(id);
+            if (resOneDoctorTime && resOneDoctorTime.success === true) {
+                this.setState({
+                    listTimeOfDoctor: resOneDoctorTime.result,
+                    id: resOneDoctorTime.result[0]?.idStaff
+                })
+            }
         }
-
+        console.log(this.props)
     }
-    getAllExamination = async () => {
-        let response = await getAllExamination();
-        // console.log('kiem tra', response)
+    buildDataInputAllDayDoctor = (inputData) => {
+        let result = [];
+        if (inputData && inputData.length > 0) {
+            inputData.map((item, index) => {
+                let object = {};
+                object.label = `${item.date}`;
+                result.push(object)
+
+            })
+        }
+        return result
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.allDayDoctors !== this.props.allDayDoctors) {
+            let dataSelectDate = this.buildDataInputAllDayDoctor(this.props.allDayDoctors)
+            this.setState({
+                listAllDayDoctor: dataSelectDate
+            })
+            console.log(dataSelectDate);
+        }
+    }
+    handleDay = async (selecteDay) =>{
+        this.setState({
+            selecteDay
+        })
+        let response = await getAllTimeInDayDoctor(this.props.match.params.id,selecteDay.label);
         if (response && response.success === true) {
             this.setState({
-                arrExamanition: response.result
+                listTimeOfDoctor:response.result
             })
-
-
         }
     }
     render() {
-        console.log(this.state.detailDoctor.image)
-        let { detailDoctor } = this.state;
-        let nameVi = '';
-        let arrExamanition = this.state.arrExamanition
+        let { detailDoctor, listTimeOfDoctor,listAllDayDoctor } = this.state;
+        let userInfo = this.props.userInfo;
+        console.log(listTimeOfDoctor)
+        let id = this.state.id
         let imageBase64 = '';
-
         if (detailDoctor.image) {
             imageBase64 = new Buffer(detailDoctor.image, 'base64').toString('binary')
         }
@@ -59,29 +95,29 @@ class DetailDoctor extends Component {
                     isShowBanner={false}
                 />
                 <div className='doctor-detail-container'>
-                    <div className='intro-doctor'>
-
-                        <div
-                            className='content-left'
-                            style={{ backgroundImage: `url(${imageBase64})` }}
-                        >
-
-                        </div>
-                        <div className='content-right'>
-                            <div className='up'>
-                                {nameVi}
+                    {detailDoctor && detailDoctor && detailDoctor.contentHTML
+                        &&
+                        <div className='intro-doctor'>
+                            <div
+                                className='content-left'
+                                style={{ backgroundImage: `url(${imageBase64})` }}
+                            >
                             </div>
-                            <div className='down'>
-                                {
-                                    <span>
-                                        {detailDoctor.description}
-                                    </span>
-                                }
+                            <div className='content-right'>
+                                <div className='up'>
+                                    {detailDoctor.name}
+                                </div>
+                                <div className='down'>
+                                    {
+                                        <span>
+                                            {detailDoctor.description}
+                                        </span>
+                                    }
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                     <div className='schedule-doctor'>
-
                     </div>
                     <div className='row'>
                         <div className=' col-6 '>
@@ -89,26 +125,24 @@ class DetailDoctor extends Component {
                                 {detailDoctor && detailDoctor && detailDoctor.contentHTML
                                     &&
                                     <div dangerouslySetInnerHTML={{ __html: detailDoctor.contentHTML }}>
-
                                     </div>
                                 }
                             </div>
                         </div>
                         <div className='col-6 detail-info-celendar'>
                             <div className='detail-infor-day'>
-                                <select>
-                                    <option selected>10-10-2022</option>
-                                    <option>10-10-2022</option>
-                                    <option>10-10-2022</option>
-                                    <option>10-10-2022</option>
-                                </select>
+                                <Select
+                                    value={this.state.selecteDay}
+                                    onChange={this.handleDay}
+                                    options={this.state.listAllDayDoctor}
+                                />
                             </div>
                             <div className='row specialty-content-item-celender-content'>
                                 {
-                                    arrExamanition && arrExamanition.map((item, index) => {
+                                    listTimeOfDoctor && listTimeOfDoctor.map((item, index) => {
                                         return (
-                                            <div className='col-3' onClick={() => this.handleShow()}>
-                                                <div className='specialty-content-item-celender-content'>
+                                            <div className='col-3' onClick={ userInfo ?   () => this.handleShow(userInfo, id,item.idTime,item.date) : () => this.handleShowLoginPage()}>
+                                                <div  className={ item.active === 1 ? 'specialty-content-item-celender-content' : 'specialty-content-item-celender-content-disable'}>
                                                     <p>{item.slotTime}</p>
                                                 </div>
                                             </div>
@@ -125,7 +159,7 @@ class DetailDoctor extends Component {
                             </div>
                             <div className='detail-info-price'>
                                 <span>GIÁ KHÁM BỆNH:</span>
-                                <p>500.000 VND</p>
+                                <p>{detailDoctor.price} VND</p>
                             </div>
                         </div>
                     </div>
@@ -138,11 +172,14 @@ class DetailDoctor extends Component {
 
 const mapStateToProps = state => {
     return {
+        userInfo: state.user.userInfo,
+        allDayDoctors: state.admin.allDayDoctors,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        fetAllDayDoctorRedux: (id) => dispatch(actions.fetchAllDayDoctor(id)),
     };
 };
 

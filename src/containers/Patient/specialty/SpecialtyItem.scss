@@ -2,7 +2,7 @@
     .specialty-banner{
         width: 100%;
         height: 200px; 
-        background-image: url('../../../assets/121042-than-kinh.jpg') ;
+        // background-image: url('../../../assets/121042-than-kinh.jpg') ; 
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
@@ -42,29 +42,33 @@
             padding: 20px 0;
             border-radius: 4px;
             .specialty-content-item-info{
+                width: 50%;
                 display: flex;
                 border-right: 0.5px solid gray;
-
+                justify-content: space-evenly;
                 .specialty-content-item-info-avt{
                     margin: 8px;
-                    width: 30%;
-                    height: 115px;
-                    background-image: url('../../../assets/155850-pgs-nguyen-tho-lo.jpg');
+                    width: 18%;
+                    // height: 115px;
                     background-position: center;
+                    background-size: cover;
+                    background-repeat: no-repeat;
                     border-radius: 50%;
                 }
                 .specialty-content-item-info-description{
+                    width: 70%;
                     span{
                         color: #22c1c3;
                         font-size: 20px;
                     }
                     p{
                         font-size: 14px;
-                        color: grey;
+                        color: black
                     }
                 }
             }
             .specialty-content-item-celender{
+                width: 50%;
                 .specialty-content-item-celender-header{
                     i{
                         font-size: 16px;
@@ -100,10 +104,18 @@
                     height: 32px;
                     width: 140px;
                     outline: none;
-                    border: none;
+                    border: 0.5px solid white;
                     background-color: #22c1c3;
                     border-radius: 4px;
+                    color: white;
+                    &:hover{
+                        background-color: white;
+                        color: #22c1c3;
+                        border: 0.5px solid  #22c1c3;
+                        cursor: pointer;
+                    }
                 }
+
             }
         }
     }

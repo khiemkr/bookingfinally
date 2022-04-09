@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import HomeHeader from '../../HomePage/HomeHeader';
+import { getDetailPatient,getDetailInfoDoctor,getOneExamination,getInfoBooking,getInfoBookingOnePatient } from '../../../services/userService';
+import * as actions from '../../../store/actions';
+import { CRUD_ACTIONS, CommonUtils } from '../../../utils';
 import './Booking.scss'
 import HomeFooter from '../../HomePage/Section/HomeFooter';
 class Booking extends Component {
@@ -8,13 +11,75 @@ class Booking extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            detailDoctor: {}
+            detailDoctor: {},
+            detailPatient: {},
+            slotTime:{},
+            arrBooking: []
         }
     }
 
     async componentDidMount() {
+        console.log(this.props)
+        if (this.props.match && this.props.match.params && this.props.match.params.id) {
+            let id = this.props.match.params.id;
+            let res = await getDetailPatient(id);
+            if (res && res.success === true) {
+                this.setState({
+                    detailPatient: res.result[0]
+                })
+            }
+            if (this.props.match && this.props.match.params && this.props.match.params.idDoctor) {
+                let idDoctor = this.props.match.params.idDoctor;
+                let resDetailDoctor = await getDetailInfoDoctor(idDoctor);
+                if (resDetailDoctor && resDetailDoctor.success === true) {
+                    this.setState({
+                        detailDoctor: resDetailDoctor.result[0]
+                    })
+                }
+            }
+            if (this.props.match && this.props.match.params && this.props.match.params.idTime) {
+                let idTime = this.props.match.params.idTime;
+                let resSlotTime = await getOneExamination(idTime);
+                console.log(resSlotTime)
+                if (resSlotTime && resSlotTime.success === true) {
+                    this.setState({
+                        slotTime: resSlotTime.result[0]
+                    })
+                }
+            }
+        }
+        await this.getBooking();
+        
     }
+    getBooking = async () => {
+        let response = await getInfoBookingOnePatient(this.props.match.params.id);
+        console.log(response)
+        if (response && response.success === true) {
+            this.setState({
+                arrBooking: response.result
+            })
+        }
+    }
+    handlebooking = () =>{
+        this.props.createNewBooking({
+            idTime: this.props.match.params.idTime,
+            idStaff: this.props.match.params.idDoctor,
+            idPatient: this.props.match.params.id,
+            idSpecialist: this.state.detailDoctor.idSpecialist,
+            date: this.props.match.params.date
+        })
+    } 
+    
     render() {
+        let detailPatient = this.state.detailPatient;
+        let detailDoctor = this.state.detailDoctor;
+        let slotTime = this.state.slotTime.slotTime;
+        let arrBooking = this.state.arrBooking
+        console.log(arrBooking)
+        let imageBase64 = '';
+        if (detailDoctor.image) {
+            imageBase64 = new Buffer(detailDoctor.image, 'base64').toString('binary')
+        }
         return (
             <>
                 <HomeHeader
@@ -30,25 +95,30 @@ class Booking extends Component {
                     <div className='row'>
                         <div className='col-3 booking-left-overlay'>
                             <div className='booking-info-doctor'>
-                                <div className='booking-info-doctor-avt'></div>
+                                <div className='booking-info-doctor-avt'
+                                style={{ backgroundImage: `url(${imageBase64})` }}
+                                ></div>
                                 <div className='booking-info-doctor-desc'>
                                     <div className='booking-info-doctor-desc-name'>
-                                        <span>BS. Nguyen Tho Lo</span>
-                                        <p> Chuyên khoa thần kinh</p>
+                                        <span>BS.{detailDoctor.name}</span>
+                                        <p>Chuyên {detailDoctor.departmentName}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className='booking-info-booking'>
                                 <div className='booking-info-booking-time'>
-                                    <p>Ngày 9-3-2022</p>
-                                    <span>8:00AM - 10:00AM</span>
+                                    <p>{this.props.match.params.date}</p>
+                                    <span>{slotTime}</span>
                                 </div>
                                 <div className='booking-info-booking-price'>
-                                    <span>500.000 VND</span>
+                                    <span>{detailDoctor.price} VND</span>
                                 </div>
                             </div>
                             <div className='booking-info-booking-btn'>
-                                <button className='btnsucces'> Đặt lịch </button>   
+                                <button className='btnsucces'
+                                    onClick={() => this.handlebooking()}
+                                > Đặt lịch 
+                                </button>   
                                 <button className='btncancel'> Hủy </button>    
                             </div>
                         </div>
@@ -58,10 +128,10 @@ class Booking extends Component {
                             </div>
                             <div className='row patient-container-booking'>
                                 <div className='col-7 patient-container-booking-info'>
-                                    <p><b>Tên bệnh nhân</b>: Nguyễn Thế Vinh</p>
-                                    <p><b>Email</b>: Vinh@gmail.com</p>
-                                    <p><b>Giới tính</b> bê đê</p>
-                                    <p><b>Địa chỉ</b>:12 thốt nốt, Cần Thơ, Việt Nam</p>
+                                    <p><b>Tên bệnh nhân</b>: {detailPatient.name}</p>
+                                    <p><b>Email</b>: {detailPatient.email}</p>
+                                    <p><b>Giới tính</b> {detailPatient.gender}</p>
+                                    <p><b>Địa chỉ</b>{detailPatient.address}</p>
                                     <p><b>Khám bệnh</b>: Khám thần kinh</p>
                                     <p><b>Ngày khám bệnh</b>: 9-3-2-2022</p>
                                     <p><b>Địa chỉ khám bênh</b>: 3-2, Xuân Khánh, Ninh Kiều, Cần Thơ, Việt Nam</p>
@@ -73,35 +143,27 @@ class Booking extends Component {
                             </div>
                             <div className='patient-container-header'><b>HỒ SƠ BỆNH ÁN</b></div>
                             <div className='row patient-container-information'>
-                                <p>Lịch tái khám</p>
+                                <p>Lịch khám benh</p>
                                 <table class="table table-striped patient-container-information-table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Ma</th>
                                             <th scope="col">Ngày khám</th>
+                                            <th scope="col">Gio khám</th>
                                             <th scope="col">Bác sĩ</th>
-                                            <th scope="col">Mô tả</th>
+                                            <th scope="col">Trang Thai</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
+                                        { arrBooking && arrBooking.map((item,index) => {
+                                            return(
+                                                <tr>
+                                                    <td>{item.date}</td>
+                                                    <td>{item.slotTime}</td>
+                                                    <td>{item.nameDoctor}</td>
+                                                    <td>{item.active === 1 ? 'Dang cho xu li' : 'Da xu li'}</td>
+                                                </tr>   
+                                            )
+                                        })}
                                     </tbody>
                                 </table>
                             </div>
@@ -166,6 +228,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        createNewBooking: (data) => dispatch(actions.createNewBooking(data)),
     };
 };
 

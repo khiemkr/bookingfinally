@@ -13,7 +13,8 @@ import {
     createNewSpecialty,
     createNewExaminationHourUserService,
     createDoctorInfo,
-    getAllExamination,createDoctorTime
+    getAllExamination,createDoctorTime,createbooking,getAllDayDoctor,createhistory
+
 } from '../../services/userService';
 import { toast } from 'react-toastify';
 // export const fetchGenderStart = () => {
@@ -94,7 +95,6 @@ export const fetchPositionFailed = () => ({
 
 
 //staffff
- 
 export const createNewUser = (data) => {
     return async (dispatch, getState) => {
         try {
@@ -121,8 +121,39 @@ export const saveUserSuccess = () => ({
 export const saveUserFailed = () => ({
     type: actionTypes.CREATE_USER_FAILD,
 })
-// them go kham cho bac si
+// dat lich
+export const createNewBooking = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await createbooking(data);
+            console.log('check', res)
+            if (res && res.success === true) {
+                toast.success('Dat lich thanh cong');
+                alert('Lich kham da duoc datj hej thoong se xu li trong thoi gian som nhat')
+                dispatch(saveBookingSuccess());
+                dispatch(fetchAllUserStart());
+            } else {
+                dispatch(saveBookingFailed());
+            }
+        } catch (e) {
+            dispatch(saveBookingFailed());
+            console.log(e)
+        }
+    }
+}
 
+export const saveBookingSuccess = () => ({
+    type: actionTypes.CREATE_USER_SUCCESS,
+})
+
+export const saveBookingFailed = () => ({
+    type: actionTypes.CREATE_USER_FAILD,
+})
+
+
+
+
+// them gio kham cho bac si
 export const createNewDoctorTime = (data) => {
     return async (dispatch, getState) => {
         try {
@@ -183,7 +214,7 @@ export const createDoctorDetailInfo = (data) => {
             let res = await createDoctorInfo(data);
             console.log('check', res)
             if (res && res.success === true) {
-                toast.success('Create new user success')
+                toast.success('Create new DetailDoctor success')
                 dispatch(saveDoctorSuccess());
                 dispatch(fetchAllUserStart());
             } else {
@@ -231,6 +262,35 @@ export const saveSpecialtySuccess = () => ({
 export const saveSpecialtyFailed = () => ({
     type: actionTypes.CREATE_USER_FAILD,
 })
+
+// lich su kham benh(duyet don kham benh)
+export const createNewHistory = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await createhistory(data);
+            console.log('check', res)
+            if (res && res.success === true) {
+                toast.success('Duyet don thanh cong')
+                dispatch(saveHistorySuccess());
+                dispatch(fetchAllUserStart());
+            } else {
+                dispatch(saveHistoryFail());
+            }
+        } catch (e) {
+            dispatch(saveHistoryFail());
+            console.log(e)
+        }
+    }
+}
+
+export const saveHistorySuccess = () => ({
+    type: actionTypes.CREATE_USER_SUCCESS,
+})
+
+export const saveHistoryFail = () => ({
+    type: actionTypes.CREATE_USER_FAILD,
+})
+
 // Tao gio kham moi
 export const createNewExaminationHour = (data) => {
     return async (dispatch, getState) => {
@@ -282,6 +342,31 @@ export const fetchAllExamination = () => {
         }
     }
 }
+// lay toan bo ngay kham cuar mot bac si
+export const fetchAllDayDoctor = (id) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllDayDoctor(id);
+            if (res && res.success === true) {
+                console.log(res)
+                dispatch({
+                    type: actionTypes.FETCH_ALL_DAY_DOCTOR_SUCCESS,
+                    dataAllDayDoctor: res.result,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_DAY_DOCTOR_FAILED,
+                });
+            }
+        } catch (e) {
+            dispatch({
+                type: actionTypes.FETCH_ALL_DAY_DOCTOR_FAILED,
+            });
+            console.log(e)
+        }
+    }
+}
+
 //lay danh sach chuyen khoa
 export const fetchAllSpecialty = () => {
     return async (dispatch, getState) => {

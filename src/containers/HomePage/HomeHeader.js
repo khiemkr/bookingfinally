@@ -16,9 +16,7 @@ class HomeHeader extends Component {
 
     }
     handleShowLoginPage = () => {
-
         this.props.history.push(`/login`)
-
     }
     handleHome = () => {
         this.props.history.push(`/home`)
@@ -29,16 +27,17 @@ class HomeHeader extends Component {
 
     }
     handleShowProfile = (patient) => { 
-        
-        // console.log(patient[0].idPatient)
         this.props.history.push(`/profile/${patient[0].idPatient ? patient[0].idPatient : patient[0].idPatient}`) 
+    }
+    handleListDoctor = () => {
+        this.props.history.push(`/listdoctor`)
+
     }
     componentDidMount() {
         let {userInfo} = this.props;
         let user = [];
         if(userInfo && !_.isEmpty(userInfo)){
-            // let userPatient = userInfo[0].name;
-            // console.log('kiem tra ten', userPatient)
+
         }
         this.setState({
             userInfoPatient: user
@@ -46,8 +45,6 @@ class HomeHeader extends Component {
     }
     render() {       
         const { processLogout, userInfo } = this.props;
-        // console.log(userInfo)
-        // console.log('check',userInfo?.[0]?.name)
         let infoPatient = userInfo?.[0]?.name;
         return (
             <React.Fragment>
@@ -59,16 +56,16 @@ class HomeHeader extends Component {
                         </div>
                         <div className='center-content'>
                             <div onClick={() => this.handleCategory()} className='child-content'>
-                                <div><b>Chuyên Khoa</b></div>
+                                <div><b>CHUYÊN KHOA</b></div>
                                 <div className='sub-title'>TÌm bác sĩ theo chuyên khoa</div>
                             </div>
                             <div className='child-content'>
-                                <div><b>Dịch vụ</b></div>
+                                <div><b>DỊCH VỤ</b></div>
                                 <div className='sub-title'>Chọn gói khám bệnh</div>
                             </div>
-                            <div className='child-content'>
-                                <div><b>Bác sĩ</b></div>
-                                <div className='sub-title'>Chọn bác sĩ giỏi</div>
+                            <div onClick={() => this.handleListDoctor()} className='child-content'>
+                                <div><b>BÁC SĨ</b></div>
+                                <div className='sub-title'>Chọn bác sĩ giỏi</div> 
                             </div>
                         </div>
                         <div onClick={infoPatient ? () => this.handleShowProfile(userInfo) : () => this.handleShowLoginPage()} className='right-content'>

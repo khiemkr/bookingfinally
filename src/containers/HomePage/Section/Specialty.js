@@ -30,6 +30,9 @@ class section extends Component {
 
 
         }
+    }
+    handleCategory = () => {
+        this.props.history.push(`/category`)
 
     }
     render() {
@@ -39,7 +42,7 @@ class section extends Component {
                 <div className='section-container'>
                     <div className='section-header'>
                         <span className='title-section'>Chuyên khoa phổ biến</span>
-                        <button className='btn-section'>Xem thêm</button>
+                        <button className='btn-section' onClick={() => this.handleCategory()}>Xem thêm</button>
                     </div>
                     <div className='section-body'>
                         <Slider {...this.props.settings} >

@@ -3,14 +3,15 @@ import { connect } from "react-redux";
 import HomeHeader from '../../HomePage/HomeHeader';
 import './Profile.scss'
 import HomeFooter from '../../HomePage/Section/HomeFooter';
-import { getDetailPatient } from '../../../services/userService'
+import { getDetailPatient, getInfoBookingOnePatient } from '../../../services/userService'
 
 class Booking extends Component {
- 
+
     constructor(props) {
         super(props);
         this.state = {
-            detailPatient: {}
+            detailPatient: {},
+            arrBooking: []
         }
     }
 
@@ -26,9 +27,20 @@ class Booking extends Component {
             }
             console.log(res.result[0])
         }
+        await this.getBooking();
+    }
+    getBooking = async () => {
+        let response = await getInfoBookingOnePatient(this.props.match.params.idPatient);
+        console.log(response)
+        if (response && response.success === true) {
+            this.setState({
+                arrBooking: response.result
+            })
+        }
     }
     render() {
-        let detailPatient = this.state.detailPatient
+        let detailPatient = this.state.detailPatient;
+        let arrBooking = this.state.arrBooking
         return (
             <>
                 <HomeHeader
@@ -37,7 +49,7 @@ class Booking extends Component {
                 <div className='booking-container'>
                     <div className='row booking-intro'>
                         <span className='booking-intro-item'>
-                          THONG TIN CA NHAN
+                            THÔNG TIN CÁ NHÂN
                         </span>
                         <div className='border'></div>
                     </div>
@@ -60,29 +72,27 @@ class Booking extends Component {
                         <div className='col-7 patient-container-header'>
                             <b>HỒ SƠ BỆNH ÁN</b>
                             <div className='row patient-container-information'>
-                                <p>Lịch tái khám</p>
+                                <p>Lịch khám bệnh</p>
                                 <table class="table table-striped patient-container-information-table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Ma</th>
-                                            <th scope="col">Ngày khám</th>
-                                            <th scope="col">Bác sĩ</th>
-                                            <th scope="col">Mô tả</th>
+                                            <th scope="col">Ngay kham</th>
+                                            <th scope="col">Gio</th>
+                                            <th scope="col">Bác sĩ phu trach</th>
+                                            <th scope="col">Trang thai</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
+                                        {arrBooking && arrBooking.map((item, index) => {
+                                            return (
+                                                <tr>
+                                                    <th>1</th>
+                                                    <td>Mark</td>
+                                                    <td>Otto</td>
+                                                    <td>@mdo</td>
+                                                </tr>
+                                            )
+                                        })}
                                     </tbody>
                                 </table>
                             </div>

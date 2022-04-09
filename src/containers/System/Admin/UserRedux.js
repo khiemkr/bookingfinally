@@ -9,7 +9,7 @@ class UserRedux extends Component {
         super(props);
         this.state = {
             previewImg: '',
-            password: '',
+            password: '', 
             email: '',
             name: '',
             phoneNumber: '',

@@ -17,7 +17,7 @@ const handleLoginPatient = (userEmail,userPassword) => {
 const getAllUsers = () =>{
     return axios.get(`/api/staff/getAll`)
 }
-// taoj nhan vien moi
+// tao nhan vien moi
 const createNewUserService = (data) =>{ 
     // return axios.post('/api/create-new-user',data);
     return axios.post('/api/staff/create',data);
@@ -45,6 +45,10 @@ const getAllExamination = () =>{
 const createNewExaminationHourUserService = (data) =>{
     return axios.post('/api/examinationhours/add',data);
 }
+// lay 1 gio kham theo id
+const getOneExamination = (inputId) =>{
+    return axios.get(`/api/examinationhours/getSingle?idTime=${inputId}`);
+}
 const createNewPatient = (data) =>{ 
     // return axios.post('/api/create-new-user',data);
     return axios.post('/api/patient/add',data);
@@ -63,7 +67,7 @@ const editUserService = (Inputdata) =>{
 //     // return axios.get(`/api/allcode?type=${inputType}`)
 //     return axios.get(`/api/role//getAll?type=${inputType}`)
 
-// }
+// } 
 const getAllCodeService = ()  =>{
     // return axios.get(`/api/allcode?type=${inputType}`)
     return axios.get(`/api/role//getAll`)
@@ -85,7 +89,7 @@ const getDetailPatient = (inputId) =>{
 // lay thong tin chi tiet mot bac si
 const getDetailInfoDoctor = (inputId) =>{
     return axios.get(`/api/doctorinfo/getDetailDoctor?idStaff=${inputId}`)
-}
+} 
 // lay bac si cua mot chuyen khoa
 const getAllDoctorofSpecialty = (inputId) =>{
     return axios.get(`/api/doctorinfo/getDoctorSpecialist?idSpecialist=${inputId}`)
@@ -94,6 +98,39 @@ const getAllDoctorofSpecialty = (inputId) =>{
 const createDoctorTime = (data) =>{ 
     return axios.post('/api/doctorTime/add',data);
 }
+// lay gio kham tat ca gio kham bac si
+const getAllDoctorTime = () =>{
+    return axios.get(`/api/doctorTime/getAllTime`)
+}
+// lay gio kham cua mot bac si theo id
+const getOneDoctorTime = (inputId) =>{
+    return axios.get(`/api/doctorTime//getSingleTime?idStaff=${inputId}`)
+}
+// lay tat cac ngay kham benh cua 1 bac si
+const getAllDayDoctor = (inputId) =>{
+    return axios.get(`/api/doctorTime/getAllDayDoctor?idStaff=${inputId}`)
+}
+// lay tat ca gio kham cuar 1 ngay kham cua mot bac si
+const getAllTimeInDayDoctor = (inputId,inputdate) =>{
+    return axios.get(`/api/doctorTime/getAllTimeInDay?idStaff=${inputId}&date=${inputdate}`)
+}
+// dat lich
+const createbooking = (data) =>{
+    return axios.post(`/api/booking/add`,data)
+}
+// lay thong tin lich kham benh
+const getInfoBooking = () =>{
+    return axios.get(`/api/booking/getAllExaminationSchedule`) 
+}
+const getInfoBookingOnePatient = (inputId) =>{
+    return axios.get(`/api/booking/getAllExaminationScheduleInPatient?idPatient=${inputId}`) 
+}
+// duyet down booking
+const createhistory = (data) =>{
+    return axios.post(`/api/history/add`,data)
+}
+
+
 
 
 
@@ -150,7 +187,14 @@ export {
     getDetailPatient,
     getAllDoctorofSpecialty,
     getDetailSpecialist,
-    createDoctorTime
-
-
+    createDoctorTime,
+    getAllDoctorTime,
+    getOneDoctorTime,
+    getOneExamination,
+    createbooking,
+    getInfoBooking,
+    getAllDayDoctor,
+    getAllTimeInDayDoctor,
+    getInfoBookingOnePatient,
+    createhistory
 }

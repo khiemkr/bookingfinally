@@ -9,7 +9,7 @@ class Doctor extends Component{
         return (
             <React.Fragment>
                 {isLoggedIn && <Header/>}
-                <div className="system-container">
+                <div className="system-container"> 
                     <div className="system-list">
                         <Switch>
                             <Route path="/staff/manage-staff-booking" component={ManageStaffBooking}/>

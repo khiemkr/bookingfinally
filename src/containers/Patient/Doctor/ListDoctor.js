@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import HomeHeader from '../../HomePage/HomeHeader';
-import './CategorySelect.scss'
+import './ListDoctor.scss'
 import HomeFooter from '../../HomePage/Section/HomeFooter';
 import { Zoom } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
@@ -9,22 +9,32 @@ import ab1 from '../../../assets/about/ab1.jpeg';
 import ab2 from '../../../assets/about/ab2.jpeg';
 import ab3 from '../../../assets/about/ab3.jpeg';
 import ab4 from '../../../assets/about/ab4.jpeg';
-import { getAllSpecialist } from '../../../services/userService'
+import { getAllSpecialist, getAllDoctors } from '../../../services/userService'
 
 const images = [
     ab1, ab2, ab3, ab4
 ];
-class CategorySelect extends Component {
+class ListDocTor extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            detailDoctor: {},
-            arrSpecialty: [],
+            arrDoctors: [],
+            selectedDoctor: '',
+            listDoctors: [],
         }
     }
     async componentDidMount() {
+        await this.getAllListDoctor();
         await this.getAllSpecialist();
+    }
+    getAllListDoctor = async () => {
+        let response = await getAllDoctors();
+        if (response && response.success === true) {
+            this.setState({
+                listDoctors: response.result
+            })
+        }
     }
     handleview = (specialist) => {
         this.props.history.push(`/specialty/${specialist.idSpecialist}`)
@@ -36,14 +46,24 @@ class CategorySelect extends Component {
             this.setState({
                 arrSpecialty: response.result
             })
-
-
         }
-        // console.log('get user from node.js', response.result)
     }
+    getAllSpecialist = async () => {
+        let response = await getAllSpecialist();
+        console.log('kiem tra', response)
+        if (response && response.success === true) {
+            this.setState({
+                arrSpecialty: response.result
+            })
+        }
+    }
+    handleViewDetailDoctor = (staff) =>{
+        this.props.history.push(`/detail-doctor/${staff.idStaff}`) 
+    } 
     render() {
-        let arrSpecialty = this.state.arrSpecialty 
-        console.log(this.state)
+        let arrSpecialty = this.state.arrSpecialty
+        let listDoctors = this.state.listDoctors;
+        console.log(arrSpecialty)
         return (
             <>
                 <HomeHeader
@@ -52,7 +72,7 @@ class CategorySelect extends Component {
                 <div className='category-container'>
                     <div className='row category-intro'>
                         <span className='category-intro-item'>
-                            <b>CÁC CHUYÊN KHOA PHỔ BIẾN</b>
+                            <b>DANH SACH BAC SI</b>
                         </span>
                         <div className='border'></div>
                     </div>
@@ -75,7 +95,7 @@ class CategorySelect extends Component {
                                         arrSpecialty && arrSpecialty.map((item, index) => {
                                             return (
                                                 <li class="category-item ">
-                                                    {item.departmentName}
+                                                    Bac si {item.departmentName}
                                                 </li>
                                             )
                                         })
@@ -83,32 +103,26 @@ class CategorySelect extends Component {
                                 </ul>
                             </nav>
                         </div>
-                        <div className='col-9 category-content-list' >
-                            {
-                                arrSpecialty && arrSpecialty.map((item, index) => {
-                                    let imageBase64 = '';
+                        <div className='col-9 listdoctor-content-list' >
+                            {listDoctors && listDoctors.map((item, index) => {
+                                let imageBase64 = '';
+                                if(item.image){
                                     imageBase64 = new Buffer(item.image,'base64').toString('binary')
-                                    return (
-                                        <>
-                                            <div onClick={() => this.handleview(item)} className='row category-content-list-item'>
-                                                <div className='col-5 category-content-list-item-img '
-                                                    style={{ backgroundImage: `url(${imageBase64})`}}
-                                                >
-
-                                                </div>
-                                                <div className='col-7 category-content-list-item-desc'>
-                                                    <div className='category-content-list-item-desc-title'>
-                                                        {item.departmentName}
-                                                    </div>
-                                                    <p>{item.description}
-                                                    </p>
-                                                    {/* <button onClick={() => this.handleview(item)} className='category-content-list-item-desc-btn'> Xem chi tiet </button> */}
-                                                </div>
+                                }
+                                return (
+                                    <div className="grid__column-2-4"
+                                    onClick={() =>this.handleViewDetailDoctor(item)}
+                                    >
+                                        <a class="home-product-item" href="">
+                                            <div className="home-product-item__img" style={{ backgroundImage: `url(${imageBase64})` }}></div>
+                                            <h4 className="home-product-item__name">Bs.{item.name}</h4>
+                                            <div className="home-product-item__action">
+                                                <span className="home-product-item__sold">{}</span>
                                             </div>
-                                        </>
-                                    )
-                                })
-                            }
+                                        </a>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
                 </div>
@@ -129,4 +143,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategorySelect);
+export default connect(mapStateToProps, mapDispatchToProps)(ListDocTor);

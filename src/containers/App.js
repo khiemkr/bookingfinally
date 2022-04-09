@@ -21,6 +21,7 @@ import Booking from './Patient/Booking/Booking';
 import Doctor from '../routes/Doctor';
 import Staff from '../routes/Staff';
 import Profile from './Patient/Profile/Profile';
+import ListDoctor from './Patient/Doctor/ListDoctor';
 class App extends Component {
 
     handlePersistorState = () => {
@@ -55,15 +56,16 @@ class App extends Component {
                                     <Route path={path.HOME} exact component={(Home)} />
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
-                                    <Route path={'/doctor/'} component={userIsAuthenticated(Doctor)} />
-                                    <Route path={'/staff/'} component={userIsAuthenticated(Staff)} />
+                                    <Route path={path.DOCTOR} component={userIsAuthenticated(Doctor)} />
+                                    <Route path={path.STAFF} component={userIsAuthenticated(Staff)} />
                                     <Route path={path.HOMEPAGE} component={HomePage} />
                                     <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
                                     <Route path={path.CATEGORY} component={CategorySelect} />
                                     <Route path={path.SPECIALTY} component={SpecialtyItem} />
                                     <Route path={path.BOOKING} component={Booking} />
                                     <Route path={path.CATEGORY_SPECIALTY} component={Booking} />
-                                    <Route path={path.PROFILE} component={Profile} />
+                                    <Route path={path.PROFILE} component={Profile} /> 
+                                    <Route path={path.LISTDOCTOR} component={ListDoctor} /> 
 
                                 </Switch>
                             </CustomScrollbars>

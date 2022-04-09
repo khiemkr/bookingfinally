@@ -41,7 +41,7 @@ class UserManage extends Component {
         let response = await getAllUsers();
         if (response && response.success === true) {
             this.setState({
-                arrUsers: response.result
+                arrUsers: response.result 
             })
         }
         // console.log('get user from node.js', response.result)
@@ -104,12 +104,12 @@ class UserManage extends Component {
         let arrUsers = this.state.arrUsers
         // console.log('check api',arrUsers);
         return (
-            <div className="users-container">
-                <ModelUser
+            <div className="users-container"> 
+                {/* <ModelUser
                     isOpen={this.state.isOpenModalUser}
                     toggleFromParent={this.toggleUserModal}
                     createNewUser={this.createNewUser}
-                />
+                /> 
                 {this.state.isOpenModalEditUser &&
                     <ModalEditUser
                         isOpen={this.state.isOpenModalEditUser}
@@ -117,7 +117,7 @@ class UserManage extends Component {
                         currentUser={this.state.userEdit}
                         editUser={this.doEditUser}
                     />
-                }
+                } */}
                 <div className='title text-center'>
                     DANH SÁCH NGƯỜI DÙNG
                 </div>

@@ -1,15 +1,18 @@
 export const path = {
     HOME: '/',
-    HOMEPAGE: '/home',
+    HOMEPAGE: '/home', 
     LOGIN: '/login', 
     LOG_OUT: '/logout',
     SYSTEM: '/system',
+    DOCTOR:'/doctor',
+    STAFF:'/staff',
     DETAIL_DOCTOR: '/detail-doctor/:id',
     CATEGORY:'/category',
     SPECIALTY:'/specialty/:idSpecilist',
-    BOOKING:'/booking',
+    BOOKING:'/booking/:id/:idDoctor/:idTime/:date', 
     CATEGORY_SPECIALTY: '/category-specialty',
-    PROFILE: '/profile/:idPatient'
+    PROFILE: '/profile/:idPatient',
+    LISTDOCTOR:'/listdoctor'
 };
 
 export const languages = {

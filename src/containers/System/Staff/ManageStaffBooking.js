@@ -1,11 +1,57 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { dispatch } from "../../../redux";
+import { getDetailPatient, getDetailInfoDoctor, getOneExamination, getInfoBooking } from '../../../services/userService';
 import './ManageStaffBooking.scss'
+import ModelUser from '../ModelUser';
+import ModalEditUser from '../ModalEditUser';
 class ManageSchedule extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            detailDoctor: {},
+            detailPatient: {},
+            slotTime: {},
+            arrBooking: [],
+            isOpenModalUser: false,
+            infoUser:{}
+        }
+    }
+    async componentDidMount() { 
+        console.log(this.props)
+        await this.getBooking();
+    }
+    getBooking = async () => {
+        let response = await getInfoBooking();
+        if (response && response.success === true) {
+            this.setState({
+                arrBooking: response.result
+            })
+        }
+        // console.log('get user from node.js', response.result)
+    }
+    handleProcess = (user) =>{
+        this.setState({
+            isOpenModalUser:true,
+            infoUser:user
+        })
+    }
+    toggleUserModal = () => {
+        this.setState({
+            isOpenModalUser: !this.state.isOpenModalUser,
+        })
+    }
     render() {
+        let arrBooking = this.state.arrBooking;
+        console.log(this.state.infoUser)
         return (
             <React.Fragment>
+                <ModelUser
+                    isOpen={this.state.isOpenModalUser}
+                    toggleFromParent={this.toggleUserModal}
+                    user={this.state.infoUser}
+                /> 
                 <div className='doctor-workshift-container'>
                     <div className="row doctor-workshift-content ">
                         <div className="col-12">
@@ -18,40 +64,23 @@ class ManageSchedule extends Component {
                                         <th>Ngay Kham</th>
                                         <th>Ten Benh Nhan</th>
                                         <th>Bac Si</th>
-                                        <th>Trang thai</th>
+                                        <th>Trang thai</th> 
                                     </tr>
-                                    <tr>
-                                        <td>h2326</td>
-                                        <td>2:00AM - 3:00AM</td>
-                                        <td>20/12/2022</td>
-                                        <td>Nguyen The Vinh</td>
-                                        <td>Nguyen Phuc Thinh</td>
-                                        <td>
-                                            <button className='btn-edit' ><i class="fas fa-check"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>h2326</td>
-                                        <td>2:00AM - 3:00AM</td>
-                                        <td>20/12/2022</td>
-                                        <td>Nguyen The Vinh</td>
-                                        <td>Nguyen Phuc Thinh</td>
 
-                                        <td>
-                                            <button className='btn-edit' ><i class="fas fa-check"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>h2326</td>
-                                        <td>2:00AM - 3:00AM</td>
-                                        <td>20/12/2022</td>
-                                        <td>Nguyen The Vinh</td>
-                                        <td>Nguyen Phuc Thinh</td>
-
-                                        <td>
-                                            <button className='btn-edit' ><i class="fas fa-check"></i></button>
-                                        </td>
-                                    </tr>
+                                    {arrBooking && arrBooking.map((item, index) => {
+                                        return (
+                                            <tr>
+                                                <td>{item.idBooking}</td>
+                                                <td>{item.slotTime}</td>
+                                                <td>{item.date}</td>
+                                                <td>{item.namePatient}</td>
+                                                <td>{item.nameDoctor}</td>
+                                                <td>
+                                                    <button onClick={() => this.handleProcess(item)}  className='btn-edit' > {item.active === 1 ? <i className='fas fa-pencil-alt'></i> : <i class="fas fa-check"></i> }</button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })}
                                 </tbody>
                             </table>
                         </div>

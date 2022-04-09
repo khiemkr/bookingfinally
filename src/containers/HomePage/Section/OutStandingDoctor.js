@@ -19,7 +19,7 @@ class OutStandingDoctor extends Component {
 
     async componentDidMount (){
         // this.props.loadTopDotors();
-        await this.getAllListDoctor();
+        await this.getAllListDoctor(); 
     }
     componentDidUpdate(prevProps,prevState,snapshot){
         // if(prevProps.topDoctorsRedux !== this.props.topDoctorsRedux){
@@ -42,6 +42,10 @@ class OutStandingDoctor extends Component {
     handleViewDetailDoctor = (staff) =>{
         this.props.history.push(`/detail-doctor/${staff.idStaff}`) 
     } 
+    handleListDoctor = () => {
+        this.props.history.push(`/listdoctor`)
+
+    }
     render() {
         // let allDoctors = this.state.arrDoctors;
         let listDoctors = this.state.listDoctors;
@@ -51,7 +55,7 @@ class OutStandingDoctor extends Component {
                <div className='section-container'>
                    <div className='section-header'>
                        <span className='title-section'>Bác sĩ nổi bậc</span>
-                       <button className='btn-section'>Xem thêm</button>
+                       <button className='btn-section' onClick={() => this.handleListDoctor()}>Xem thêm</button>
                    </div>
                    <div className='section-body'>
                         <Slider {...this.props.settings} >

@@ -8,16 +8,17 @@ import ManagaDoctor from '../containers/System/Admin/ManagaDoctor';
 import ManageWorkshift from '../containers/System/Admin/ManageWorkShif/ManageWorkshift';
 import ManageSpecialty from '../containers/System/Admin/ManageSpecialty/ManageSpecialty';
 import ManageTime from '../containers/System/Admin/ManageTime/ManageTime';
-
+import Dashboard from '../containers/System/Dashboard/Dashboard';
 class System extends Component { 
     render() {
         const { systemMenuPath,isLoggedIn } = this.props;
         return (
             <React.Fragment>
                 {isLoggedIn && <Header />} 
-                <div className="system-container">
+                <div className="system-container"> 
                     <div className="system-list">
                         <Switch>
+                            <Route path="/system/dashboard" component={Dashboard} />
                             <Route path="/system/user-manage" component={UserManage} />
                             <Route path="/system/user-redux" component={UserRedux} />
                             <Route path="/system/manage-doctor" component={ManagaDoctor} />
@@ -37,7 +38,6 @@ const mapStateToProps = state => {
     return {
         systemMenuPath: state.app.systemMenuPath,
         isLoggedIn: state.user.isLoggedIn
-
     };
 };
 

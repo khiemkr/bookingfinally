@@ -1,10 +1,12 @@
-
+import * as actions from '../../store/actions';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Button,Modal,ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import {getInfoBooking } from '../../services/userService';
+
 import { emitter } from '../../utils/emitter';
-class ModalUser extends Component {
+class ModelUser extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -12,53 +14,47 @@ class ModalUser extends Component {
             password:'',
             firstName:'',
             lastName:'',
-            address:''
+            address:'',
+            detailDoctor: {},
+            detailPatient: {},
+            slotTime: {},
+            arrBooking: []
         }
-        this.listenEmitter();
+        // this.listenEmitter();
     }
-    listenEmitter(){
-        emitter.on('EVENT_CLEAR_MODAL_DATA',() =>{
-            this.setState({
-                email:'',
-                password:'',
-                firstName:'',
-                lastName:'',
-                address:''
-            })
-        })
-    }
+    // listenEmitter(){
+    //     emitter.on('EVENT_CLEAR_MODAL_DATA',() =>{
+    //         this.setState({
+    //             email:'',
+    //             password:'',
+    //             firstName:'',
+    //             lastName:'',
+    //             address:''
+    //         })
+    //     })
+    // }
 
-    componentDidMount() {
-
+    async componentDidMount() {
+        console.log(this.props)
     }
     toggle = () =>{
         this.props.toggleFromParent();
     }
-    handleOnChangInput = (e,id) => {
-        let copyState = {...this.state}
-        copyState[id] = e.target.value;
-        this.setState({
-            ...copyState
-        })
-    }
-    checkValidateInput = () =>{
-        let isValid = true
-        let arrInput = ['email','password','firstName','lastName','address'];
-        for(let i = 0; i< arrInput.length;i++){
-            if(!this.state[arrInput[i]]){
-                isValid = false;
-                break
-            }
-        }
-        return true
-    }
     handleAddNewUSer = () => {
-        let isvalid = this.checkValidateInput();
-        if(isvalid === true){
-            this.props.createNewUser(this.state);
-        }
+        this.props.createHistory(
+            {
+                idBooking: this.props.user.idBooking,
+                slotTime: this.props.user.idBooking,
+                nameDoctor: this.props.user.nameDoctor,
+                date: this.props.user.date,
+                namePatient:this.props.user.namePatient
+            }
+        )
+        console.log(this.props.user)
     }
     render() {
+        let infoUser = this.props.user
+        console.log(this.props)
         return (
             <Modal 
                 isOpen = {this.props.isOpen} 
@@ -67,55 +63,32 @@ class ModalUser extends Component {
                 size='md'
                 centered
             >
-                <ModalHeader toggle={() => {this.toggle()}}> Thêm người dùng </ModalHeader> 
+                <ModalHeader toggle={() => {this.toggle()}}> XÁC NHÂN THÔNG TIN ĐẶT LỊCH </ModalHeader> 
                 <ModalBody>
                 <div className="row">
                         <div className="form-row">
                             <div className="form-group col-md-12">
-                                <label for="inputEmail4">Email</label>
-                                <input type="email" onChange={(e)=>{this.handleOnChangInput(e,'email')}} value={this.state.email} className="form-control" placeholder="Email" name="email"></input>
+                                <label for="inputEmail4"><b>Mã hồ sơ</b> :{infoUser.idBooking}</label>
+                                <label for="inputEmail4"></label>
                             </div>
                             <div className="form-group col-md-12">
-                                <label for="inputPassword4">Password</label>
-                                <input type="password" onChange={(e)=>{this.handleOnChangInput(e,'password')}} value={this.state.password} className="form-control" name="password" placeholder="Password"></input>
+                                <label for="inputPassword4"><b>Ngày khám bệnh</b> :{infoUser.date}</label>
                             </div>
                             <div className="form-group col-md-12">
-                                <label for="inputEmail4">Name</label>
-                                <input type="text" onChange={(e)=>{this.handleOnChangInput(e,'firstName')}} value={this.state.firstName} className="form-control" placeholder="FirstName" name="firstName"></input>
+                                <label for="inputEmail4"><b>Giờ khám bệnh</b> :{infoUser.slotTime}</label>
                             </div>
-                            {/* <div className="form-group col-md-12">
-                                <label for="inputPassword4">Last Name</label>
-                                <input type="text" onChange={(e)=>{this.handleOnChangInput(e,'lastName')}} value={this.state.lastName} className="form-control" name="lastName" placeholder="lastname"></input>
-                            </div> */}
+                            <div className="form-group col-md-12">
+                                <label for="inputPassword4"><b>Bác sĩ phụ trách</b> :{infoUser.nameDoctor}</label>
+                            </div>
                             <div className="form-group">
-                                <label for="inputAddress">Address</label>
-                                <input type="text" onChange={(e)=>{this.handleOnChangInput(e,'address')}} value={this.state.address} className="form-control" name="address" placeholder="1234 Main St"></input>
+                                <label for="inputAddress"><b>Bệnh nhân</b> :{infoUser.namePatient}</label>
                             </div>
-                            <div className="form-group col-md-12">
-                                <label for="inputCity">Phone number</label>
-                                <input type="text" className="form-control" name="phonenumber"></input>
-                            </div>
-                                <div className="form-group col-md-12">
-                                    <label for="inputState">Gender</label>
-                                    <select name="gender" className="form-control">
-                                    <option value="1">Male</option>
-                                    <option value="0">Female</option>
-                                    </select>
-                                </div>
-                                <div className="form-group col-md-12">
-                                    <label for="inputZip">Role</label>
-                                    <select name="roleId" className="form-control">
-                                        <option value="1">Admin</option>
-                                        <option value="2">Doctor</option>
-                                        <option value="3">Patient</option>
-                                    </select>
-                                </div>
                         </div>
                 </div>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color='primary' className='px-3' onClick={() => {this.handleAddNewUSer()}}>Thêm</Button>
-                    <Button color='secondary' className='px-3' onClick={() => {this.toggle()}}>Hủy Bỏ</Button>
+                    <Button color='primary' className='px-3' onClick={() => {this.handleAddNewUSer()}}>DUYỆT</Button>
+                    <Button color='secondary' className='px-3' onClick={() => {this.toggle()}}>HỦY</Button>
                 </ModalFooter>
             </Modal>
         )
@@ -130,7 +103,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        createHistory: (data) => dispatch(actions.createNewHistory(data)),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalUser);
+export default connect(mapStateToProps, mapDispatchToProps)(ModelUser);
