@@ -53,7 +53,7 @@ export const adminMenu = [
         name: 'Hồ sơ bệnh án',
         menus: [
             {
-                name: 'Quản lý hồ sơ', link: '/system/manage-specialty'
+                name: 'Quản lý hồ sơ', link: '/system/manage-history'
             },
           
         ]

@@ -169,7 +169,7 @@ class ManageSpecialty extends Component {
                                             <th>Mo ta</th>
                                             <th>Gia dich vu</th>
                                             <th>Hinh anh</th>
-                                            <th>Tac vu</th>
+                                            {/* <th>Tac vu</th> */}
                                         </tr>
                                         {
                                             arrSpecialty && arrSpecialty.map((item, index) => {
@@ -184,10 +184,10 @@ class ManageSpecialty extends Component {
                                                         <td>{item.price}</td>
                                                         <td><img src = {imageBase641} style={{width:'50px' , height :'50px'}} /></td>
 
-                                                        <td>
+                                                        {/* <td>
                                                             <button className='btn-edit' onClick={() => this.handleEditUser(item)}><i className='fas fa-pencil-alt'></i></button>
                                                             <button className='btn-delete' onClick={() => this.handleDeleteUser(item)}><i className='fas fa-trash'></i></button>
-                                                        </td>
+                                                        </td> */}
                                                     </tr>
                                     )
                                             })

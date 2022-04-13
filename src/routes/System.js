@@ -9,6 +9,7 @@ import ManageWorkshift from '../containers/System/Admin/ManageWorkShif/ManageWor
 import ManageSpecialty from '../containers/System/Admin/ManageSpecialty/ManageSpecialty';
 import ManageTime from '../containers/System/Admin/ManageTime/ManageTime';
 import Dashboard from '../containers/System/Dashboard/Dashboard';
+import ManageHistory from '../containers/System/Admin/ManageHistory/ManageHistory';
 class System extends Component { 
     render() {
         const { systemMenuPath,isLoggedIn } = this.props;
@@ -24,7 +25,8 @@ class System extends Component {
                             <Route path="/system/manage-doctor" component={ManagaDoctor} />
                             <Route path="/system/manage-workshift" component={ManageWorkshift} />
                             <Route path="/system/manage-specialty" component={ManageSpecialty} />
-                            <Route path="/system/manage-time" component={ManageTime} />
+                            <Route path="/system/manage-time" component={ManageTime} />]
+                            <Route path="/system/manage-history" component={ManageHistory}/>
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>
                     </div>

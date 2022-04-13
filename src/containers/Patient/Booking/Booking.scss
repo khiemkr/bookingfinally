@@ -14,13 +14,13 @@
         .border{
             width: 326px;
             height: 4px;
-            background-color: #22c1c3;
+            background-color: #4caf50;
             margin-bottom:20px;
         }
     }
 }
 .booking-left-overlay{
-    background-color: #e9f0f6;
+    background-color: #b4fbb6;
     border-radius: 4px;
     .booking-info-doctor{
         .booking-info-doctor-avt{
@@ -42,7 +42,7 @@
                 
                 span{
                     font-size: 20px;
-                    color: #22c1c3;
+                    color: #4caf50;
                 }
                 p{
                     font-size: 18px;
@@ -57,19 +57,19 @@
             span{
                 font-size: 20px;
                 margin: 6px;
-                border: 1px solid #22c1c3;
+                border: 1px solid #4caf50;
             }
             p{
                 font-size: 20px;
                 margin: 5px;
                 color: #22c1c3;
-                border-top: 0.5px solid #22c1c3;
+                border-top: 0.5px solid #4caf50;
             }
         }
         .booking-info-booking-price{
             height: 80px;
             margin: 20px auto;
-            border: 1px solid #22c1c3;
+            border: 1px solid #4caf50;
             background-color: white;
             border-radius: 4px;
             text-align: center;
@@ -77,6 +77,7 @@
                 font-size: 30px;
                 position: relative;
                 top: 16px;
+                color: #4caf50;
             }
         }
         .patient-container-information{
@@ -88,7 +89,7 @@
             btn-ok{ 
                 width: 140px;
                  height: 40px;
-                background-color: #22c1c3;
+                background-color: #4caf50;
                 color: white;
                 border: none;
                 border-radius: 2px;
@@ -103,7 +104,7 @@
         justify-content: space-between;
         .btnsucces{
             border: none;
-            background-color: #22c1c3;
+            background-color: #4caf50;
             width: 140px;
             height: 40px;
             border-radius: 4px;
@@ -113,7 +114,7 @@
                 cursor: pointer;
                 background-color: white;
                 color: #22c1c3;
-                border: 0.5px solid #22c1c3;
+                border: 0.5px solid #4caf50;
             }
         }
         .btncancel{
@@ -128,7 +129,7 @@
                 cursor: pointer;
                 background-color: white;
                 color: #22c1c3;
-                border: 0.5px solid #22c1c3;
+                border: 0.5px solid #4caf50;
             }
         }
 
@@ -136,7 +137,8 @@
 
 }
 .patient-container{
-    
+    border: 0.5px solid #b4fbb6;
+    box-shadow: 0 0 2px #4caf50;
     .patient-container-header{
         text-align: center;
         margin-bottom: 24px;
@@ -149,13 +151,14 @@
             font-size: 22px;
         }
         .patient-container-booking-img{
-            // background-image: url('../../../assets/logo2.png');
-            width: 200px;
-            height: 150px;
+            background-image: url('../../../assets/logo2.png');
+            width: 300px;
+            height: 300px;
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
             border-radius: 50%;
+            transform: rotate(-25deg);
         }
     }
     .patient-container-booking-history{
@@ -169,6 +172,6 @@
     }
     .patient-container-information-table{
         width: 974px;
-        margin-left: 34px;
+        // margin-left: 34px;
     }
 }

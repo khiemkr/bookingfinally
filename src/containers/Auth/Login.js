@@ -80,7 +80,7 @@ class Login extends Component {
                 if (data && data.success !== true) {
                     this.setState({
                         errMessage: data.message
-                    })
+                    }) 
                 }
                 if (data && data.success === true) {
                     this.props.userLoginSuccess(data.user);
@@ -145,14 +145,14 @@ class Login extends Component {
             <div class="login-reg-panel">
                 <div class="login-info-box">
                     <div className='logo'></div>
-                    <h2>Bạn đã có tài khoản</h2>
+                    <h2 style={{fontSize:'22px'}}>Bạn đã có tài khoản</h2>
                     <p>Đăng nhập tại đây</p>
                     <label id="label-register" for="log-reg-show">Đăng Nhập</label>
                     <input type="radio" name="active-log-panel" id="log-reg-show" value="log-reg-show" />
                 </div>
                 <div class="register-info-box">
                     <div className='logo'></div>
-                    <h2>Bạn chưa có tài khoản</h2>
+                    <h2 style={{fontSize:'22px'}}>Bạn chưa có tài khoản</h2>
                     <p>Đăng kí tài khoản mới tại đây</p>
                     <label id="label-login" for="log-login-show">Đăng kí</label>
                     <input type="radio" name="active-log-panel" value="log-login-show" id="log-login-show" />

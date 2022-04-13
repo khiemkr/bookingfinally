@@ -3,8 +3,8 @@
     height: 80px;
     padding: 0 20px;
     // background-color: rgba(34,193,195,0.5);
-    background-color: #83fcb8;
-    //linear-gradient(#3ecfd1, #d4dfe5)
+    // background-color: linear-gradient(#22c1c3, #fff);
+    // linear-gradient:(#22c1c3, #fff);
     color: #000;
     box-shadow: 0 0 10px grey;
     .home-header-content{
@@ -41,7 +41,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            // text-shadow: 1px 1px 1px #333;
+            color: #4caf50;
+            text-shadow: 0.5px 0.5px 0.5px grey;
             .child-content{
                 .sub-title{
                     font-weight: 400;
@@ -52,7 +53,7 @@
                 }
             }
             b{
-                font-size: 16px;
+                font-size: 20px;
             }
             .child-content {
                 text-align: center;
@@ -66,7 +67,7 @@
             .btn-login{
                 width: 140px;
                 height: 40px;
-                background-color: #22c1c3;
+                background-color: #4caf50;
                 color: white;
                 border: none;
                 border-radius: 2px;
@@ -83,6 +84,7 @@
                 font-size: 16px;
                 position: absolute;
                 right: 130px;
+                color: #4caf50;
                 &:hover{
                     cursor: pointer;
                 }
@@ -94,14 +96,14 @@
                 position: absolute;
                 right: 90px;
                 font-size: 24px;
-                color: black;
+                color: #4caf50;
                 top: 14px;
                 &:hover{
                     cursor: pointer;
                     right: 36px;
                 }
                 ul{
-                    background-color: #e9f0f6;
+                    background-color: #b4fbb6;
                     position: relative;
                     right: 42px;
                     height: 72px;
@@ -172,7 +174,7 @@
             margin: 0 auto;
             padding: 10px;
             border-radius: 25px;
-            background: #3ecfd1;
+            background: #4caf50;
             font-size: 20px;
             color: white;
             i{
@@ -185,6 +187,10 @@
                 border: none;
                 outline: none;
                 color: white;
+                &::placeholder{
+                    color: white;
+                }
+
             }
         }
     }
@@ -210,7 +216,7 @@
                     text-align: center;
                     margin: 0 auto;
                     i{
-                        color: #22c1c3;
+                        color: #4caf50;
                         font-size: 20px;
                         &:hover{
                             cursor: pointer;

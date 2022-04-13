@@ -11,7 +11,9 @@ const initialState = {
     allSpecialty: [],
     allExamination: [],
     allScheduleTime: [],
-    allDayDoctors: []
+    allDayDoctors: [],
+    allDay: [],
+    allSlotTime: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -118,6 +120,26 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_ALL_DAY_DOCTOR_FAILED:
             state.dataAllDayDoctor = [];
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_DAY_SUCCESS:
+            state.allDay = action.dataAllDay;
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_DAY_FAILED:
+            state.dataAllDay = [];
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_SLOTTIME_SUCCESS:
+            state.allSlotTime = action.dataAllSlotTime;
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_SLOTTIME_FAILED:
+            state.dataAllSlotTime = [];
             return {
                 ...state,
             }

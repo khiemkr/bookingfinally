@@ -86,10 +86,10 @@ class Booking extends Component {
                                         {arrBooking && arrBooking.map((item, index) => {
                                             return (
                                                 <tr>
-                                                    <th>1</th>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td>@mdo</td>
+                                                    <th>{item.date}</th>
+                                                    <td>{item.slotTime}</td>
+                                                    <td>{item.nameDoctor}</td>
+                                                    <td>{item.active ===  1 ? 'Đang chờ xử lí' : 'Đã xử lí'}</td>
                                                 </tr>
                                             )
                                         })}

@@ -37,9 +37,17 @@ const getDetailSpecialist = (inputId) =>{
     return axios.get(`/api/specialist/getSingle?idSpecialist=${inputId}`)
 }
 
-// lay danh sach gio kham
+// lay danh sach toanf bo gio kham
 const getAllExamination = () =>{
     return axios.get(`/api/examinationhours/getAll`)
+}
+// lay danh sach ngay kham
+const getAllDay = () =>{
+    return axios.get(`/api/examinationhours/getAllDay`)
+}
+// lay danh sach gio kham
+const getAllSlotTime = () =>{
+    return axios.get(`/api/examinationhours/getAllSlotTime`)
 }
 // tao gio kham moi
 const createNewExaminationHourUserService = (data) =>{
@@ -96,7 +104,7 @@ const getAllDoctorofSpecialty = (inputId) =>{
 }
 // tao gio kham cho tung bac si
 const createDoctorTime = (data) =>{ 
-    return axios.post('/api/doctorTime/add',data);
+    return axios.post('/api/doctorTime/add',data); 
 }
 // lay gio kham tat ca gio kham bac si
 const getAllDoctorTime = () =>{
@@ -129,6 +137,20 @@ const getInfoBookingOnePatient = (inputId) =>{
 const createhistory = (data) =>{
     return axios.post(`/api/history/add`,data)
 }
+// lay lich su kham benh theo id benh nhan
+const getHistoryBookingOnePatient = (inputId) =>{
+    return axios.get(`/api/history//getAllHistoryPatient?idPatient=${inputId}`) 
+}
+// lay thong tin kham benh cua mot bac si
+
+const getInfoBookingOneDoctor = (inputId) =>{
+    return axios.get(`/api/booking//getAllTimeInDoctor?idStaff=${inputId}`) 
+}
+// gui email xac nhan lich
+const SendEmailConfirm = (inputEmail,inputId) =>{
+    return axios.post(`/api/email/send?email=${inputEmail}&idBooking=${inputId}`)
+}
+
 
 
 
@@ -196,5 +218,10 @@ export {
     getAllDayDoctor,
     getAllTimeInDayDoctor,
     getInfoBookingOnePatient,
-    createhistory
+    createhistory,
+    getAllDay,
+    getAllSlotTime ,
+    getHistoryBookingOnePatient,
+    getInfoBookingOneDoctor,
+    SendEmailConfirm
 }

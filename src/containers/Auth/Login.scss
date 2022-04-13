@@ -193,7 +193,7 @@ a{
   right:0;left:0;
     margin:auto;
     height:400px;
-    background-color: rgba(34,193,195,1);
+    background-color: #4caf50;
 }
 .white-panel{
     background-color: rgba(255,255, 255, 1);
@@ -226,7 +226,7 @@ a{
     font-size: 15px;
     &:hover{
         background-color: white;
-        color: #22c1c3;
+        color: #4caf50;
     }
 }
 .login-info-box{
@@ -272,7 +272,7 @@ a{
 .login-show input[type="button"] {
     max-width: 150px;
     width: 100%;
-    background: #444444;
+    background: #4caf50;
     color: #f9f9f9;
     border: none;
     padding: 10px;
@@ -296,7 +296,7 @@ a{
 .register-show input[type="button"] {
     max-width: 150px;
     width: 100%;
-    background: #444444;
+    background: #4caf50;
     color: #f9f9f9;
     border: none;
     padding: 10px;
@@ -326,7 +326,7 @@ a{
 .logo{
     width: 95px;
     height: 70px;
-    background-image: url('../../assets/logo2.png');
+    background-image: url('../../assets/login.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

@@ -173,6 +173,7 @@ class ManageTime extends Component {
                                         }
                                 </tbody>
                             </table>
+                            <br/>
                         </div>
                     </div>
                     </div>

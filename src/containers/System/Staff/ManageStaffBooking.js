@@ -71,7 +71,7 @@ class ManageSchedule extends Component {
                                         return (
                                             <tr>
                                                 <td>{item.idBooking}</td>
-                                                <td>{item.slotTime}</td>
+                                                <td>{item.slotTime}</td> 
                                                 <td>{item.date}</td>
                                                 <td>{item.namePatient}</td>
                                                 <td>{item.nameDoctor}</td>
@@ -86,6 +86,7 @@ class ManageSchedule extends Component {
                         </div>
                     </div>
                 </div>
+               
             </React.Fragment>
         )
     }

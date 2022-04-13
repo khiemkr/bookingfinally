@@ -27,6 +27,8 @@ class ManageWorkshift extends Component {
         this.props.fetAllDoctorsRedux();
         this.props.fetchAllScheduleHoursRedux();
         this.props.fetAllExaminationRedux();
+        this.props.fetAllDayRedux();
+        this.props.fetAllSlotTimeRedux();
         await this.getAllDoctorTimeRedux();
     }
 
@@ -58,7 +60,7 @@ class ManageWorkshift extends Component {
                 let object = {};
                 object.label = `${item.slotTime}`;
                 object.value = item.idTime;
-                object.date = `${item.currentDate}`
+                // object.date = `${item.currentDate}`
                 result.push(object)
 
             })
@@ -71,7 +73,7 @@ class ManageWorkshift extends Component {
             inputData.map((item, index) => {
                 let object = {};
                 object.label = `${item.currentDate}`
-                object.value = item.idTime;
+                // object.value = item.idTime;
                 result.push(object)
 
             })
@@ -85,30 +87,33 @@ class ManageWorkshift extends Component {
                 listDoctors: dataSelectDoctor
             })
         }
-        if (prevProps.allExamination !== this.props.allExamination) {
-            let dataSelectExamination = this.buildDataInputSelectExamination(this.props.allExamination)
+        if (prevProps.allSlotTime !== this.props.allSlotTime) {
+            let dataSelectExamination = this.buildDataInputSelectExamination(this.props.allSlotTime)
             this.setState({
                 listTime: dataSelectExamination,
             })
             console.log(dataSelectExamination);
         }
-        if (prevProps.allExamination !== this.props.allExamination) {
-            let dataSelectDate = this.buildDataInputSelectDate(this.props.allExamination)
+        if (prevProps.allDay !== this.props.allDay) {
+            let dataSelectDate = this.buildDataInputSelectDate(this.props.allDay)
             this.setState({
                 listDate: dataSelectDate
             })
-            console.log(dataSelectDate[1].label);
         }
     }
     handleChangeDoctor = async (selectedDoctor) => {
         this.setState({
             selectedDoctor,
+            
         })
+        console.log(selectedDoctor)
+
     }
     handleChangeTime = async (selectedTime) => {
         this.setState({
-            selectedTime
+            selectedTime,
         })
+        console.log(selectedTime)
     }
     handleChangeDate = async (selecteddate) => {
         this.setState({
@@ -122,10 +127,11 @@ class ManageWorkshift extends Component {
             idTime: this.state.selectedTime.value,
             date: this.state.selecteddate.label
         })
-        console.log(this.state.image)
+        console.log(this.props)
     }
     render() {
         let arrDoctorTime = this.state.arrDoctorTime
+        console.log(this.state)
         return (
             <div className='user-redux-container'>
                 <div className="title" >
@@ -211,7 +217,9 @@ const mapStateToProps = state => {
         isLoggedIn: state.user.isLoggedIn,
         allDoctors: state.admin.allDoctors,
         allScheduleTime: state.admin.allScheduleTime,
-        allExamination: state.admin.allExamination
+        allExamination: state.admin.allExamination,
+        allDay: state.admin.allDay,
+        allSlotTime:state.admin.allSlotTime
     };
 };
 const mapDispatchToProps = dispatch => {
@@ -219,6 +227,8 @@ const mapDispatchToProps = dispatch => {
         createNewDoctorTime: (data) => dispatch(actions.createNewDoctorTime(data)),
         fetAllDoctorsRedux: () => dispatch(actions.fetchAllDoctor()),
         fetAllExaminationRedux: () => dispatch(actions.fetchAllExamination()),
+        fetAllDayRedux: () => dispatch(actions.fetchAllDay()),
+        fetAllSlotTimeRedux: () => dispatch(actions.fetchAllSlotTime()),
         saveDetailDoctorRedux: (data) => dispatch(actions.saveDetailInfoDoctor(data)),
         fetchAllScheduleHoursRedux: () => dispatch(actions.fetchAllScheduleHours()),
     };

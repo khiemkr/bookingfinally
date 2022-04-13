@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import HomeHeader from '../../HomePage/HomeHeader';
-import { getDetailPatient,getDetailInfoDoctor,getOneExamination,getInfoBooking,getInfoBookingOnePatient } from '../../../services/userService';
+import { getDetailPatient, getDetailInfoDoctor, getOneExamination, getInfoBooking, getInfoBookingOnePatient, getHistoryBookingOnePatient } from '../../../services/userService';
 import * as actions from '../../../store/actions';
 import { CRUD_ACTIONS, CommonUtils } from '../../../utils';
 import './Booking.scss'
@@ -10,11 +10,12 @@ class Booking extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             detailDoctor: {},
             detailPatient: {},
-            slotTime:{},
-            arrBooking: []
+            slotTime: {},
+            arrBooking: [],
+            arrHistoryBooking: []
         }
     }
 
@@ -49,7 +50,8 @@ class Booking extends Component {
             }
         }
         await this.getBooking();
-        
+        await this.getHistoryBooking();
+
     }
     getBooking = async () => {
         let response = await getInfoBookingOnePatient(this.props.match.params.id);
@@ -60,7 +62,16 @@ class Booking extends Component {
             })
         }
     }
-    handlebooking = () =>{
+    getHistoryBooking = async () => {
+        let response = await getHistoryBookingOnePatient(this.props.match.params.id);
+        console.log(response)
+        if (response && response.success === true) {
+            this.setState({
+                arrHistoryBooking: response.result
+            })
+        }
+    }
+    handlebooking = () => {
         this.props.createNewBooking({
             idTime: this.props.match.params.idTime,
             idStaff: this.props.match.params.idDoctor,
@@ -68,14 +79,15 @@ class Booking extends Component {
             idSpecialist: this.state.detailDoctor.idSpecialist,
             date: this.props.match.params.date
         })
-    } 
-    
+    }
+
     render() {
         let detailPatient = this.state.detailPatient;
         let detailDoctor = this.state.detailDoctor;
         let slotTime = this.state.slotTime.slotTime;
-        let arrBooking = this.state.arrBooking
-        console.log(arrBooking)
+        let arrBooking = this.state.arrBooking;
+        let arrHistoryBooking = this.state.arrHistoryBooking;
+        console.log(this.props)
         let imageBase64 = '';
         if (detailDoctor.image) {
             imageBase64 = new Buffer(detailDoctor.image, 'base64').toString('binary')
@@ -96,7 +108,7 @@ class Booking extends Component {
                         <div className='col-3 booking-left-overlay'>
                             <div className='booking-info-doctor'>
                                 <div className='booking-info-doctor-avt'
-                                style={{ backgroundImage: `url(${imageBase64})` }}
+                                    style={{ backgroundImage: `url(${imageBase64})` }}
                                 ></div>
                                 <div className='booking-info-doctor-desc'>
                                     <div className='booking-info-doctor-desc-name'>
@@ -117,9 +129,9 @@ class Booking extends Component {
                             <div className='booking-info-booking-btn'>
                                 <button className='btnsucces'
                                     onClick={() => this.handlebooking()}
-                                > Đặt lịch 
-                                </button>   
-                                <button className='btncancel'> Hủy </button>    
+                                > Đặt lịch
+                                </button>
+                                <button className='btncancel'> Hủy </button>
                             </div>
                         </div>
                         <div className='col-9 patient-container'>
@@ -138,7 +150,7 @@ class Booking extends Component {
                                     <p><b>Ghi chú</b>: Quý bệnh nhân đến khám theo giờ trên lịch đã đăng kí sẽ có nhân viên tư vấn hỗ trợ</p>
                                 </div>
                                 <div className='col-5 patient-container-booking-img'>
-
+                                    
                                 </div>
                             </div>
                             <div className='patient-container-header'><b>HỒ SƠ BỆNH ÁN</b></div>
@@ -154,14 +166,14 @@ class Booking extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        { arrBooking && arrBooking.map((item,index) => {
-                                            return(
+                                        {arrBooking && arrBooking.map((item, index) => {
+                                            return (
                                                 <tr>
                                                     <td>{item.date}</td>
                                                     <td>{item.slotTime}</td>
                                                     <td>{item.nameDoctor}</td>
                                                     <td>{item.active === 1 ? 'Dang cho xu li' : 'Da xu li'}</td>
-                                                </tr>   
+                                                </tr>
                                             )
                                         })}
                                     </tbody>
@@ -172,43 +184,22 @@ class Booking extends Component {
                                 <table class="table table-striped patient-container-information-table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Ma</th>
                                             <th scope="col">Bác sĩ phụ trách</th>
-                                            <th scope="col">Nhân viên hỗ trợ</th>
                                             <th scope="col">Giờ khám bệnh</th>
                                             <th scope="col">Ngày khám bệnh</th>
-                                            <th scope="col">Mô tả</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-
-                                        </tr>
+                                        {arrHistoryBooking && arrHistoryBooking.map((item, index) => {
+                                            return (
+                                                <tr>
+                                                    <td>{item.nameDoctor}</td>
+                                                    <td>{item.slotTime}</td>
+                                                    <td>{item.date}</td>
+                                                </tr>
+                                            )
+                                        })}
                                     </tbody>
                                 </table>
                             </div>

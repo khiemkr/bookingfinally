@@ -3,42 +3,33 @@ import { connect } from "react-redux";
 import { dispatch } from "../../../redux";
 import * as actions from '../../../store/actions';
 import './ManageSchedule.scss';
-import { getAllExamination, getOneDoctorTime,getInfoBookingOnePatient } from '../../../services/userService'
+import { getInfoBookingOneDoctor } from '../../../services/userService'
 
 class ManageSchedule extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            listTimeOfDoctor: []
+            listTimeOfDoctor: [],
+            arrinfoBooking:[]
         }
     }
     async componentDidMount() {
         console.log(this.props.userInfo)
-        // if (this.props.userInfo && this.props.userInfo[0].idStaff) {
-        //     let id = this.props.userInfo[0].idStaff;
-        //     let resOneDoctorTime = await getOneDoctorTime(id);
-        //     if (resOneDoctorTime && resOneDoctorTime.success === true) {
-        //         this.setState({
-        //             listTimeOfDoctor: resOneDoctorTime.result,
-        //         })
-        //     }
-        // }
-        await this.getBooking();
+        await this.getinfoBooking();
 
     }
 
-    getBooking = async () => {
-        let response = await getInfoBookingOnePatient(this.props.match.params.id);
+    getinfoBooking = async () => {
+        let response = await getInfoBookingOneDoctor(this.props.userInfo[0].idStaff);
         console.log(response)
         if (response && response.success === true) {
             this.setState({
-                arrBooking: response.result
+                arrinfoBooking: response.result
             })
         }
     }
     render() {
-        let listTimeOfDoctor = this.state.listTimeOfDoctor
-        console.log(listTimeOfDoctor)
+        let arrinfoBooking = this.state.arrinfoBooking
         return (
             <React.Fragment>
                 <div className='doctor-workshift-container'>
@@ -51,18 +42,15 @@ class ManageSchedule extends Component {
                                         <th>Gio Kham</th>
                                         <th>Ngay Kham</th>
                                         <th>Ten Benh Nhan</th>
-                                        <th>Trang thai</th>
                                     </tr>
                                     {
-                                        listTimeOfDoctor && listTimeOfDoctor.map((item, index) => {
+                                        arrinfoBooking && arrinfoBooking.map((item, index) => {
                                             return (
                                                 <tr>
                                                     <td>{item.slotTime}</td>
                                                     <td>{item.date}</td>
-                                                    <td>{}</td>
-                                                    <td>
-                                                        <button className='btn-edit' ><i class="fas fa-check"></i></button>
-                                                    </td>
+                                                    <td>{item.name}</td>
+                                                
                                                 </tr>
                                             )
                                         })

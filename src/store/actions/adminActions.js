@@ -13,7 +13,9 @@ import {
     createNewSpecialty,
     createNewExaminationHourUserService,
     createDoctorInfo,
-    getAllExamination,createDoctorTime,createbooking,getAllDayDoctor,createhistory
+    getAllExamination,createDoctorTime,createbooking,getAllDayDoctor,createhistory,
+    getAllDay,
+    getAllSlotTime
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -159,11 +161,18 @@ export const createNewDoctorTime = (data) => {
         try {
             let res = await createDoctorTime(data);
             console.log('check', res)
-            if (res && res.success === true) {
-                toast.success('Create new user success')
+            if (res && res.success === true && res.message === 'Add time success') {
+                toast.success('Create new time doctor success')
                 dispatch(saveDoctorTimeSuccess());
                 dispatch(fetchAllUserStart());
-            } else {
+            }
+            if (res && res.success === true && res.message === 'Time revered') {
+                toast.warn('Da ton tai gio kham bac si')
+                // dispatch(saveDoctorTimeSuccess());
+                // dispatch(fetchAllUserStart());
+            }
+            
+            else {
                 dispatch(saveDoctorTimeFailed());
             }
         } catch (e) {
@@ -300,7 +309,7 @@ export const createNewExaminationHour = (data) => {
             if (res && res.success === true) {
                 toast.success('Create new Hour success')
                 dispatch(saveHourSuccess());
-                dispatch(fetchAllUserStart());
+                // dispatch(fetchAllUserStart());
             } else {
                 dispatch(saveHourFailed());
             }
@@ -342,6 +351,57 @@ export const fetchAllExamination = () => {
         }
     }
 }
+// lay danh sach ngay kkhám
+export const fetchAllDay = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllDay();
+            if (res && res.success === true) {
+                console.log(res)
+                dispatch({
+                    type: actionTypes.FETCH_ALL_DAY_SUCCESS,
+                    dataAllDay: res.result,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_DAY_FAILED,
+                });
+            }
+        } catch (e) {
+            dispatch({
+                type: actionTypes.FETCH_ALL_DAY_FAILED,
+            });
+            console.log(e)
+        }
+    }
+}
+
+// lay danhsach gio kahm
+export const fetchAllSlotTime = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllSlotTime();
+            if (res && res.success === true) {
+                console.log(res)
+                dispatch({
+                    type: actionTypes.FETCH_ALL_SLOTTIME_SUCCESS,
+                    dataAllSlotTime: res.result,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_SLOTTIME_FAILED,
+                });
+            }
+        } catch (e) {
+            dispatch({
+                type: actionTypes.FETCH_ALL_SLOTTIME_FAILED,
+            });
+            console.log(e)
+        }
+    }
+}
+
+
 // lay toan bo ngay kham cuar mot bac si
 export const fetchAllDayDoctor = (id) => {
     return async (dispatch, getState) => {
