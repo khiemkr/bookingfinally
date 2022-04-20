@@ -6,6 +6,7 @@ import { CRUD_ACTIONS, CommonUtils } from '../../../../utils';
 import { getAllSpecialist } from '../../../../services/userService'
 import { emitter } from '../../../../utils/emitter';
 import './ManageSpecialty.scss'
+import HomeFooter from "../../../HomePage/Section/HomeFooter";
 class ManageSpecialty extends Component {
     constructor(props) {
         super(props);
@@ -198,7 +199,9 @@ class ManageSpecialty extends Component {
                     </div>
                 </div>
             </div>
+            <HomeFooter/>
             </div >
+            
         )
     } 
 }

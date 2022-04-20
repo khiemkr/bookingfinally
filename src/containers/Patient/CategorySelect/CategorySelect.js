@@ -24,7 +24,8 @@ class CategorySelect extends Component {
         }
     }
     async componentDidMount() {
-        await this.getAllSpecialist();
+        await this.getAllSpecialist(); 
+        
     }
     handleview = (specialist) => {
         this.props.history.push(`/specialty/${specialist.idSpecialist}`)
@@ -81,6 +82,8 @@ class CategorySelect extends Component {
                                         })
                                     }
                                 </ul>
+                                {/* <div  id = "Cateimg"class="home-product-item__img" style="background-image:url(https://cf.shopee.vn/file/4fec096d5d273e37e7fc7bb14d24173f);"></div>
+                                <div class="home-product-item__img" style="background-image:url(https://www.ontopvn.com/wp-content/uploads/2020/05/shop-ban-quan-ao-danh-cho-nam-o-da-nang.jpg);"></div> */}
                             </nav>
                         </div>
                         <div className='col-9 category-content-list' >

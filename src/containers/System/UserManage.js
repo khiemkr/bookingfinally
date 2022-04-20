@@ -6,6 +6,7 @@ import { getAllUsers, createNewUserService, deleteUserService, editUserService }
 import ModelUser from './ModelUser';
 import ModalEditUser from './ModalEditUser';
 import { emitter } from '../../utils/emitter';
+import HomeFooter from '../HomePage/Section/HomeFooter';
 class UserManage extends Component {
     constructor(props) {
         super(props)
@@ -131,7 +132,7 @@ class UserManage extends Component {
                                 <th>Địa chỉ</th>
                                 <th>Vị trí</th>
                                 <th>Hinh Anh</th>
-                                <th>Quản lí</th>
+                                {/* <th>Quản lí</th> */}
                             </tr>
                             {
                                 arrUsers && arrUsers.map((item, index) => {
@@ -152,10 +153,10 @@ class UserManage extends Component {
 
                                             }</td>
                                             <td><img src = {imageBase64} style={{width:'50px' , height :'50px'}} /></td>
-                                            <td>
+                                            {/* <td>
                                                 <button className='btn-edit' onClick={() => this.handleEditUser(item)}><i className='fas fa-pencil-alt'></i></button>
                                                 <button className='btn-delete' onClick={() => this.handleDeleteUser(item)}><i className='fas fa-trash'></i></button>
-                                            </td>
+                                            </td> */}
                                         </tr>
                                     )
                                 })
@@ -163,6 +164,7 @@ class UserManage extends Component {
                         </tbody>
                     </table>
                 </div>
+                <HomeFooter/>
             </div>
         );
     }

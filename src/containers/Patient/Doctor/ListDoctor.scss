@@ -5,6 +5,7 @@
         padding-left: 5px;
         padding-right: 5px;
         width: 25%;
+        padding-bottom: 10px;
         .home-product-item{
             position: relative;
             display: block;
@@ -16,6 +17,7 @@
             box-shadow: 0 0.0625rem 0.125rem 0 rgba(0,0,0,0.1);
             transition: transform linear 0.1s;
             will-change: transform;
+            border: 0.5px solid #4caf50;
             .home-product-item__img{
                 padding-top: 100%;
                 background-repeat: no-repeat;

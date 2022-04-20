@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import './Managehistory.scss';
 import { getInfoBooking } from '../../../../services/userService'
+import HomeFooter from "../../../HomePage/Section/HomeFooter";
 class ManageHistory extends Component {
 
     constructor(props) {
@@ -74,6 +75,7 @@ class ManageHistory extends Component {
                         </div>
                     </div>
                 </div>
+                <HomeFooter/>
             </React.Fragment>
         )
     }

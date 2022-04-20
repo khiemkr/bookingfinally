@@ -8,6 +8,7 @@ import DatePicker from "../../../../components/Input/DatePicker";
 import { getAllDoctorTime } from "../../../../services/userService";
 import Select from 'react-select';
 import moment from "moment";
+import HomeFooter from "../../../HomePage/Section/HomeFooter";
 class ManageWorkshift extends Component {
     constructor(props) {
         super(props)
@@ -207,6 +208,7 @@ class ManageWorkshift extends Component {
                         </div>
                     </div>
                 </div>
+                <HomeFooter/>
             </div>
         )
 

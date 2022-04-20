@@ -4,6 +4,7 @@ import * as actions from '../../../store/actions';
 import { CRUD_ACTIONS, CommonUtils } from '../../../utils';
 import './UserRedux.scss';
 import TableManageUser from './TableManageUser';
+import HomeFooter from '../../HomePage/Section/HomeFooter';
 class UserRedux extends Component {
     constructor(props) {  
         super(props);
@@ -220,6 +221,7 @@ class UserRedux extends Component {
                         </div>
                     </div>
                 </div>
+                <HomeFooter/>
             </div>
         )
     }

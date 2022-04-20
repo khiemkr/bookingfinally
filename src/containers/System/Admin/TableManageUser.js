@@ -5,7 +5,7 @@ import * as actions from '../../../store/actions'
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite'
 import 'react-markdown-editor-lite/lib/index.css'
-
+import HomeFooter from '../../HomePage/Section/HomeFooter';
 
 const mdParser = new MarkdownIt();
 function handleEditorChange({html,text}){
@@ -69,6 +69,7 @@ class TableManageUser extends Component {
                 <MdEditor style={{height:'500px'}} renderHTML={text =>mdParser.render(text)}
                     onChange={handleEditorChange}
                 />
+                <HomeFooter/>
             </React.Fragment>
         );
     }

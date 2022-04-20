@@ -4,6 +4,7 @@ import { dispatch } from "../../../redux";
 import * as actions from '../../../store/actions';
 import './Dashboard.scss';
 import { getAllExamination, getOneDoctorTime } from '../../../services/userService'
+import HomeFooter from "../../HomePage/Section/HomeFooter";
 
 class Dashboard extends Component {
     constructor(props) {
@@ -30,6 +31,7 @@ class Dashboard extends Component {
                         </div>
                     </div>
                 </div>
+                <HomeFooter/>
             </React.Fragment>
         )
     }

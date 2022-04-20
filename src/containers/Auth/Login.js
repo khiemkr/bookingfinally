@@ -58,6 +58,14 @@ class Login extends Component {
                 }
             });
         });
+        $(document).keypress(function(event){
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if (keycode == '13') {
+                handleLogin();
+                // alert('Bạn vừa nhấn phím "enter" trên trang web');
+            }
+            });
+        
     }
     handleOnChangeUserName = (e) => {
         this.setState({
@@ -82,23 +90,42 @@ class Login extends Component {
                         errMessage: data.message
                     }) 
                 }
-                if (data && data.success === true) {
+                if (data && data.success === true && data.message ==='login success') {
                     this.props.userLoginSuccess(data.user);
+                }
+                if (data && data.success === true && data.message ==='password false') {
+                    this.setState({
+                        errMessage: data.message
+                    }) 
+                }
+                if (data && data.success === true && data.message ==='password empty') {
+                    this.setState({
+                        errMessage: data.message
+                    }) 
                 }
             }
             if((data && data.message === 'email invalid')){
                 let dataPatient = await handleLoginPatient(this.state.username, this.state.passwordlog);
-                console.log(dataPatient)
-
+                console.log(dataPatient) 
                 if (dataPatient && dataPatient.success !== true) {
                     this.setState({
                         errMessage: data.message
                     })
                 }
-                if (dataPatient && dataPatient.success === true) {
+                if (dataPatient && dataPatient.success === true && dataPatient.message === 'login success') {
                     this.props.userLoginSuccess(dataPatient.user);
-                    // console.log(this.props)
+                    console.log(dataPatient)
                     window.location.replace('http://localhost:3000/home')
+                }
+                if (dataPatient && dataPatient.success === true && dataPatient.message ==='password false') {
+                    this.setState({
+                        errMessage: data.message
+                    })
+                }
+                if (dataPatient && dataPatient.success === true && dataPatient.message ==='email invalid') {
+                    this.setState({
+                        errMessage:'Không tìm thấy thông tin tài khoản'
+                    })
                 }
             }
         } 
@@ -139,6 +166,7 @@ class Login extends Component {
         })
         console.log(this.state)
     }
+    
     render() {
         let { password, email, name, phoneNumber, address, gender, date } = this.state;
         return (
@@ -179,6 +207,7 @@ class Login extends Component {
                             {this.state.errMessage}
                         </div>
                         <input type="button" value="Đăng Nhập"
+                            // onKeyDown={() => this.onkeyEnter()}
                             onClick={() => this.handleLogin()}
                         />
 

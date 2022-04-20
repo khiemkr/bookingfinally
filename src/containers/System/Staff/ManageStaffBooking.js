@@ -5,6 +5,7 @@ import { getDetailPatient, getDetailInfoDoctor, getOneExamination, getInfoBookin
 import './ManageStaffBooking.scss'
 import ModelUser from '../ModelUser';
 import ModalEditUser from '../ModalEditUser';
+import HomeFooter from "../../HomePage/Section/HomeFooter";
 class ManageSchedule extends Component {
 
     constructor(props) {
@@ -86,6 +87,7 @@ class ManageSchedule extends Component {
                         </div>
                     </div>
                 </div>
+                <HomeFooter/>
                
             </React.Fragment>
         )

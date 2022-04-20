@@ -5,7 +5,7 @@ import * as actions from '../../../../store/actions';
 import { CRUD_ACTIONS,CommonUtils } from '../../../../utils';
 import DatePicker from "../../../../components/Input/DatePicker";
 import { getAllExamination } from '../../../../services/userService'
-
+import HomeFooter from "../../../HomePage/Section/HomeFooter";
 import './ManageTime.scss'
 class ManageTime extends Component {
     constructor(props) {
@@ -178,6 +178,7 @@ class ManageTime extends Component {
                     </div>
                     </div>
                 </div>
+                <HomeFooter/>
             </div>
         )
     }

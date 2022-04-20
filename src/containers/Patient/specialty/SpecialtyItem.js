@@ -104,34 +104,19 @@ class CategorySelect extends Component {
                                             </div>
                                         </div>
                                         <div className='col-6 specialty-content-item-celender'>
-                                            <div className='specialty-content-item-celender-header'>
-                                                <span><i class="fas fa-calendar"></i>LỊCH KHÁM BỆNH</span>
-                                            </div>
-                                            <div className='row specialty-content-item-celender-content'>
-                                                <div className='col-3'>
-                                                    <div className='specialty-content-item-celender-content'>
-                                                        <p>8:00AM - 10:00AM</p>
+                                            <div className='row'>
+                                                <div className='col-6'>
+                                                    {/* <div className='specialty-content-item-celender-header'>
+                                                        <span><i class="fas fa-calendar"></i>LỊCH KHÁM BỆNH</span>
+                                                    </div> */}
+                                                    <div className='specialty-content-item-celender-price'>
+                                                        <span>GIÁ DỊCH VỤ: </span>
+                                                        <p>{detailSpecialty.price} VND</p>
                                                     </div>
                                                 </div>
-                                                <div className='col-3'>
-                                                    <div className='specialty-content-item-celender-content'>
-                                                        <p>8:00AM - 10:00AM</p>
-                                                    </div>
+                                                <div className='col-6'>
+                                                    <div className='medical_logo'></div>
                                                 </div>
-                                                <div className='col-3'>
-                                                    <div className='specialty-content-item-celender-content'>
-                                                        <p>8:00AM - 10:00AM</p>
-                                                    </div>
-                                                </div>
-                                                <div className='col-3'>
-                                                    <div className='specialty-content-item-celender-content'> 
-                                                        <p>8:00AM - 10:00AM</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className='specialty-content-item-celender-price'>
-                                                <span>GIA DICH VU : </span>
-                                                <p>{detailSpecialty.price} VND</p>
                                             </div>
                                             <button
                                                 onClick={() => this.handlShowdetail(item)}

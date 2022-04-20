@@ -44,6 +44,7 @@ class HomeHeader extends Component {
         })
     }
     render() {       
+        console.log(this.props)
         const { processLogout, userInfo } = this.props;
         let infoPatient = userInfo?.[0]?.name;
         return (

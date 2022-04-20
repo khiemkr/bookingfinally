@@ -4,6 +4,7 @@ import { dispatch } from "../../../redux";
 import * as actions from '../../../store/actions';
 import './ManageSchedule.scss';
 import { getInfoBookingOneDoctor } from '../../../services/userService'
+import HomeFooter from "../../HomePage/Section/HomeFooter";
 
 class ManageSchedule extends Component {
     constructor(props) {
@@ -60,6 +61,7 @@ class ManageSchedule extends Component {
                         </div>
                     </div>
                 </div>
+                <HomeFooter/>
             </React.Fragment>
         )
     }

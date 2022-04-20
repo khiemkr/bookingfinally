@@ -21,12 +21,12 @@
         height: 250px;
         margin-left: -10px;
     }
-
+ 
     .category-sidebar{
-        background-color: #b4fbb6;
+        // background-color: #b4fbb6;
         height: 100%;
-        box-shadow: 0px 2px 2px #c0bdbd;
-
+        box-shadow: 0px 2px 2px #b4fbb6;
+        border: 0.5px solid #4caf50;
         .category{
             border-radius: 2px;
         }
@@ -36,7 +36,7 @@
             padding: 8px 4px;
             border-bottom: 1px solid rgba(0, 0, 0, 0.03);
             margin-top: 0;
-            text-shadow: 1px 1px 1px grey;
+            // text-shadow: 1px 1px 1px grey;
             i{
                 margin-right: 12px;
             }
@@ -53,7 +53,7 @@
             &:hover{
                 right: -4px;
                 color: white;
-                background-color: #22c1c3;
+                background-color: #4caf50;
                 border-radius: 4px;
                 cursor: pointer;
             }
@@ -65,12 +65,13 @@
             margin: 0px auto;
             margin-bottom: 24px;
             height: 200px;
-            background-color: #b4fbb6;
-            box-shadow: 0px 2px 2px #c0bdbd;
+            // background-color: #b4fbb6;
+            box-shadow: 0px 2px 2px #b4fbb6;
             margin-left: 52px;
+            border: 0.5px solid #4caf50;
             &:hover{
-                box-shadow: 0 0.625rem 20px 0 rgba(0, 0,0, 0.5);
-                transform: translateY(-1px);
+                box-shadow: 0 0.625rem 20px 0 #b4fbb6;
+                transform: translateY(-0.5px);
             }
             .category-content-list-item-img{
                 // background-image: url('../../../assets/121042-than-kinh.jpg');
@@ -83,7 +84,8 @@
                     font-size: 40px;
                     font-family: auto;
                     color: #4caf50;
-                    text-shadow: 1px 1px 1px gray;
+                    // text-shadow: 1px 1px 1px gray;
+                    
                 }
                 p{
                     font-size: 16px;

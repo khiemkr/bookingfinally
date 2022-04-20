@@ -36,26 +36,30 @@
                 border-bottom: 1px solid #4caf50;
             }
         }
-        .specialty-content-item{
-            background-color: #b4fbb6;
-            box-shadow: 0px 2px 2px rgb(192, 189, 189);
+        .specialty-content-item{ 
+            // background-color: #b4fbb6;
+            box-shadow: 0px 2px 2px #b4fbb6;
             width: 100%;
             margin: 20px 0;
-            padding: 20px 0;
+            // padding: 20px 0;
             border-radius: 4px;
+            border: 0.5px solid #4caf50;
+            height: 175px;
             .specialty-content-item-info{
                 width: 50%;
                 display: flex;
                 border-right: 0.5px solid gray;
                 justify-content: space-evenly;
+                height: 174px;
                 .specialty-content-item-info-avt{
                     margin: 8px;
-                    width: 18%;
-                    // height: 115px;
+                    width: 25%;
+                    height: 156px;
                     background-position: center;
                     background-size: cover;
                     background-repeat: no-repeat;
                     border-radius: 50%;
+                    // position: relative;
                 }
                 .specialty-content-item-info-description{
                     width: 70%;
@@ -81,6 +85,14 @@
                         
                     }
                 }
+                .medical_logo{
+                    background-image: url('../../../../src/assets/logo2.png');
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    width: 267px;
+                    height: 170px;
+                }
                 .specialty-content-item-celender-content{
                     border-bottom: 0.5px solid gray;
                     margin-bottom: 4px;
@@ -96,20 +108,27 @@
                     }
                 }
                 .specialty-content-item-celender-price{
-                    display: flex;
+                    // display: flex;
                     span{
                         margin-right: 20px;
                         color: #4caf50;
+                        font-size: 24px;
+                        font-family: 'Font Awesome 5 Free';
+                    }
+                    p{
+                        font-size: 24px;
                     }
                 }
                 .specialty-content-item-celender-btn-detail{
-                    height: 32px;
+                    height: 48px;
                     width: 140px;
                     outline: none;
                     border: 0.5px solid white;
                     background-color: #4caf50;
                     border-radius: 4px;
                     color: white;
+                    position: relative;
+                    top: -74px;
                     &:hover{
                         background-color: white;
                         color: #4caf50;

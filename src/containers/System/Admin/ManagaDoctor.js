@@ -8,6 +8,7 @@ import 'react-markdown-editor-lite/lib/index.css'
 import './ManageDoctor.scss'
 import Select from 'react-select'
 import {getDetailInfoDoctor} from '../../../services/userService'
+import HomeFooter from '../../HomePage/Section/HomeFooter';
 const mdParser = new MarkdownIt();
 class ManageDoctor extends Component {
     constructor(props) {
@@ -171,6 +172,7 @@ class ManageDoctor extends Component {
                         <span>Luu thong tin</span> : <span>Tao thong tin</span>
                     }
                 </button>
+                <HomeFooter/>
             </div>
         );
     }
