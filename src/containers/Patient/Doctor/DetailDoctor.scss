@@ -1,5 +1,6 @@
 .doctor-detail-container {
     margin: 20px 100px;
+    margin-top: 120px;
     .intro-doctor{
         display: flex;
         // background-color: #b4fbb6;
@@ -89,6 +90,9 @@
                     position: relative;
                     top: 10px;
                     right: -12px;
+                }
+                &:hover{
+                    cursor: not-allowed;
                 }
             }
             

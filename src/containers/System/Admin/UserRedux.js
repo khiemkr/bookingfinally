@@ -6,11 +6,11 @@ import './UserRedux.scss';
 import TableManageUser from './TableManageUser';
 import HomeFooter from '../../HomePage/Section/HomeFooter';
 class UserRedux extends Component {
-    constructor(props) {  
+    constructor(props) {
         super(props);
         this.state = {
             previewImg: '',
-            password: '', 
+            password: '',
             email: '',
             name: '',
             phoneNumber: '',
@@ -27,7 +27,7 @@ class UserRedux extends Component {
         this.props.getPositionStart();
     }
     componentDidUpdate(preProps, preState, snapshot) {
-        if(preProps.positionRedux !== this.props.positionRedux){
+        if (preProps.positionRedux !== this.props.positionRedux) {
             this.setState({
                 positionArr: this.props.positionRedux
             })
@@ -55,24 +55,24 @@ class UserRedux extends Component {
             this.setState({
                 previewImg: objectUrl,
                 avatar: base64
-            }) 
+            })
         }
     }
     handleSaveUser = () => {
         let isValid = this.checkValidateInput();
         if (isValid === false) return;
         let { action } = this.state;
-            this.props.createNewUser({
-                name: this.state.name,
-                email: this.state.email,
-                password: this.state.password,
-                address: this.state.address,
-                phoneNumber: this.state.phoneNumber,
-                gender: this.state.gender,
-                // roleId: this.state.role,
-                idRole: this.state.position,
-                image: this.state.avatar
-            })
+        this.props.createNewUser({
+            name: this.state.name,
+            email: this.state.email,
+            password: this.state.password,
+            address: this.state.address,
+            phoneNumber: this.state.phoneNumber,
+            gender: this.state.gender,
+            // roleId: this.state.role,
+            idRole: this.state.position,
+            image: this.state.avatar
+        })
         console.log(this.state.image)
     }
 
@@ -88,7 +88,7 @@ class UserRedux extends Component {
         }
         return isValid
     }
- 
+
     onChangeInput = (e, id) => {
         let copyState = { ...this.state }
         copyState[id] = e.target.value;
@@ -119,110 +119,113 @@ class UserRedux extends Component {
         })
     }
     render() {
-        let { password, email, name, phonenumber, address, gender,position,image } = this.state;
+        let { password, email, name, phonenumber, address, gender, position, image } = this.state;
         let positions = this.state.positionArr;
         console.log(positions)
         return (
-            <div className='user-redux-container'>
-                <div className="title" >
-                    THÊM MỚI NGƯỜI DÙNG
-                </div> 
-                <div className='user-redux-body'>
-                    <div className='container'>
-                        <div className='row'>
-                            <div className='col-3'>
-                                <label>Email</label>
-                                <input className='form-control' type='email'
-                                    value={email}
-                                    onChange={(e) => { this.onChangeInput(e, 'email') }}
-                                    disabled={this.state.action === CRUD_ACTIONS.EDIT ? true : false}
-                                />
-                            </div>
-                            <div className='col-3'>
-                                <label>Password</label>
-                                <input className='form-control' type='password'
-                                    value={password}
-                                    onChange={(e) => { this.onChangeInput(e, 'password') }}
-                                    disabled={this.state.action === CRUD_ACTIONS.EDIT ? true : false}
-                                />
-                            </div>
-                            <div className='col-3'>
-                                <label>Name</label>
-                                <input className='form-control' type='text'
-                                    value={name}
-                                    onChange={(e) => { this.onChangeInput(e, 'name') }}
-                                />
-                            </div>
-                            <div className='col-3'>
-                                <label>Address</label>
-                                <input className='form-control' type='text'
-                                    value={address}
-                                    onChange={(e) => { this.onChangeInput(e, 'address') }}
-                                />
-                            </div>
-                            <div className='col-3'>
-                                <label>PhoneNumber</label>
-                                <input className='form-control' type='text'
-                                    value={phonenumber}
-                                    onChange={(e) => { this.onChangeInput(e, 'phoneNumber') }}
-                                />
-                            </div>
-                            <div className='col-3'>
-                                <label>Gender</label>
-                                <select className='form-control'
-                                    onChange={(e) => { this.onChangeInput(e, 'gender') }}
-                                    value={gender}
-                                >
-                                    <option></option>
-                                    <option>NAM</option>
-                                    <option>NU</option>
-                                </select>
-                            </div>
-                            <div className='col-3'>
-                                <label>Vị Trí</label>
-                                <select className='form-control'
-                                    onChange={(e) => { this.onChangeInput(e, 'position') }}
-                                    value={position}
-                                    >
-                                    {positions && positions.length > 0 &&
-                                        positions.map((item, index) => {
-                                            return (
-                                                <option
-                                                    key={index}
-                                                    value={item.idRole}
-                                                >
-                                                    {item.roleName}
-                                                </option>
-                                            )
-                                        })}
-                              </select>
-                            </div>
-                            <div className='col-6'>
-                                <label>Image</label>
-                                <div className='preview-img-container'>
-                                    <input id='previewImg' type='file' hidden
-                                        onChange={(e) => this.handleOnchangeImage(e)}
+            <React.Fragment>
+                <div className='user-redux-container'>
+                    <div className="title" >
+                        THÊM MỚI NGƯỜI DÙNG
+                    </div>
+                    <div className='user-redux-body'>
+                        <div className='container'>
+                            <div className='row'>
+                                <div className='col-3'>
+                                    <label>Email</label>
+                                    <input className='form-control' type='email'
+                                        value={email}
+                                        onChange={(e) => { this.onChangeInput(e, 'email') }}
+                                        disabled={this.state.action === CRUD_ACTIONS.EDIT ? true : false}
                                     />
-                                    <label className='label-upload' htmlFor='previewImg'> Tải Ảnh <i className='fas fa-upload'></i></label>
-                                    <div className='preview-image' style={{ backgroundImage: `url(${this.state.previewImg})` }}>
+                                </div>
+                                <div className='col-3'>
+                                    <label>Password</label>
+                                    <input className='form-control' type='password'
+                                        value={password}
+                                        onChange={(e) => { this.onChangeInput(e, 'password') }}
+                                        disabled={this.state.action === CRUD_ACTIONS.EDIT ? true : false}
+                                    />
+                                </div>
+                                <div className='col-3'>
+                                    <label>Name</label>
+                                    <input className='form-control' type='text'
+                                        value={name}
+                                        onChange={(e) => { this.onChangeInput(e, 'name') }}
+                                    />
+                                </div>
+                                <div className='col-3'>
+                                    <label>Address</label>
+                                    <input className='form-control' type='text'
+                                        value={address}
+                                        onChange={(e) => { this.onChangeInput(e, 'address') }}
+                                    />
+                                </div>
+                                <div className='col-3'>
+                                    <label>PhoneNumber</label>
+                                    <input className='form-control' type='text'
+                                        value={phonenumber}
+                                        onChange={(e) => { this.onChangeInput(e, 'phoneNumber') }}
+                                    />
+                                </div>
+                                <div className='col-3'>
+                                    <label>Gender</label>
+                                    <select className='form-control'
+                                        onChange={(e) => { this.onChangeInput(e, 'gender') }}
+                                        value={gender}
+                                    >
+                                        <option></option>
+                                        <option>NAM</option>
+                                        <option>NU</option>
+                                    </select>
+                                </div>
+                                <div className='col-3'>
+                                    <label>Vị Trí</label>
+                                    <select className='form-control'
+                                        onChange={(e) => { this.onChangeInput(e, 'position') }}
+                                        value={position}
+                                    >
+                                        {positions && positions.length > 0 &&
+                                            positions.map((item, index) => {
+                                                return (
+                                                    <option
+                                                        key={index}
+                                                        value={item.idRole}
+                                                    >
+                                                        {item.roleName}
+                                                    </option>
+                                                )
+                                            })}
+                                    </select>
+                                </div>
+                                <div className='col-6'>
+                                    <label>Image</label>
+                                    <div className='preview-img-container'>
+                                        <input id='previewImg' type='file' hidden
+                                            onChange={(e) => this.handleOnchangeImage(e)}
+                                        />
+                                        <label className='label-upload' htmlFor='previewImg'> Tải Ảnh <i className='fas fa-upload'></i></label>
+                                        <div className='preview-image' style={{ backgroundImage: `url(${this.state.previewImg})` }}>
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className='col-12 mt-3'>
-                                <button className={this.state.action === CRUD_ACTIONS.EDIT ? 'btn btn-warning' : 'btn btn-primary'}
-                                    onClick={() => this.handleSaveUser()}
-                                >
-                                    {this.state.action === CRUD_ACTIONS.EDIT ? 'Save Change' : 'Save'}
-                                </button>
-                            </div>
-                            <div className='col-12 mb-5'>
+                                <div className='col-12 mt-3'>
+                                    <button className={this.state.action === CRUD_ACTIONS.EDIT ? 'btn btn-warning' : 'btn btn-primary'}
+                                        onClick={() => this.handleSaveUser()}
+                                    >
+                                        {this.state.action === CRUD_ACTIONS.EDIT ? 'Save Change' : 'Save'}
+                                    </button>
+                                </div>
+                                <div className='col-12 mb-5'>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <HomeFooter/>
-            </div>
+
+                <HomeFooter />
+            </React.Fragment>
         )
     }
 
@@ -241,7 +244,7 @@ const mapDispatchToProps = dispatch => {
         // getGenderStart: () => { dispatch(actions.fetchGenderStart()) },
         // getRoleStart: () => { dispatch(actions.fetchRoleStart()) },
         getPositionStart: () => { dispatch(actions.fetchPositionStart()) },
-        createNewUser: (data) => dispatch(actions.createNewUser(data)), 
+        createNewUser: (data) => dispatch(actions.createNewUser(data)),
         fetUserRedux: () => dispatch(actions.fetchAllUserStart()),
         editUserRedux: (data) => dispatch(actions.editUser(data))
     };

@@ -93,30 +93,32 @@ class ManageDoctor extends Component {
             idStaff: selectedDoctor.value
         })
         let res = await getDetailInfoDoctor(selectedDoctor.value);
-        // if(res && res.success === true && res.result && res.result.contentMarkdown){
-        //     let markdown = res.infor.data.kMarkdown;
-        //     this.setState({
-        //         contentHTML: markdown.contentHTML,
-        //         contentMarkdown: markdown.contentMarkdown,
-        //         description: markdown.description,
-        //         hasOldData: true
-        //     })
-        //     console.log('check res',this.state.contentMarkdown)
-        // } else{
-        //     this.setState({
-        //         contentHTML: '',
-        //         contentMarkdown: '',
-        //         description: '',
-        //         hasOldData: false
+        console.log(res)
+        if(res && res.success === true && res.result && res.result[0].contentMarkdown){
+            // let markdown = res.infor.data.kMarkdown;
+            this.setState({
+                contentHTML: res.result[0].contentHTML,
+                contentMarkdown: res.result[0].contentMarkdown,
+                description: res.result[0].description,
+                hasOldData: true
+            })
+            console.log('check res',this.state.contentMarkdown)
+        } else{
+            this.setState({
+                contentHTML: '',
+                contentMarkdown: '',
+                description: '',
+                hasOldData: false
 
-        //     })
-        // }
+            })
+        }
     }
     handleChangeSpecialty = async (selectedSpecialty) =>{
         this.setState({
             selectedSpecialty,
             idSpecialist: selectedSpecialty.value
         })
+        
     }
     handleOnChangeDesc = (e) =>{
         this.setState({
@@ -132,13 +134,13 @@ class ManageDoctor extends Component {
                 </div> 
                 <div className='more-info'>
                     <div className='content-left form-group'>
-                        <label>Chon Chuyen Khoa</label>
+                        <label>Chọn chuyên khoa</label>
                         <Select
                             value={this.state.selectedSpecialty}
                             onChange={this.handleChangeSpecialty}
                             options={this.state.listSpecialtys}
                         />
-                        <label>Chon Bac  Si</label>
+                        <label>Chọn bác sĩ</label>
                         <Select
                             value={this.state.selectedDoctor}
                             onChange={this.handleChangeDoctor}
@@ -146,7 +148,7 @@ class ManageDoctor extends Component {
                         />
                     </div>
                     <div className='content-right'>
-                        <label>Thong tin gioi thieu:</label>
+                        <label>Thông tin giới thiệu:</label>
                         <textarea 
                             className='form-control' 
                             rows='4'
@@ -156,6 +158,7 @@ class ManageDoctor extends Component {
                         </textarea>
                     </div>
                 </div>
+                
                 <div className='manage-doctor-editor'>
                     <MdEditor 
                         style={{height:'500px'}} 
@@ -169,7 +172,7 @@ class ManageDoctor extends Component {
                     className={hasOldData === true ? 'save-content-doctor' : 'create-content-doctor'}
                 >
                    {hasOldData === true ? 
-                        <span>Luu thong tin</span> : <span>Tao thong tin</span>
+                        <span>Lưu thông tin</span> : <span>Tạo thông tin</span>
                     }
                 </button>
                 <HomeFooter/>

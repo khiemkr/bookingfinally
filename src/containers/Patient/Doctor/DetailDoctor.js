@@ -9,7 +9,7 @@ import Booking from '../Booking/Booking';
 import { getAllExamination, getOneDoctorTime,getAllDayDoctor,getAllTimeInDayDoctor } from '../../../services/userService'
 import { withRouter } from 'react-router';
 import Select from 'react-select';
-
+import { compareAsc, format } from 'date-fns'
 class DetailDoctor extends Component {
 
     constructor(props) { 
@@ -22,8 +22,14 @@ class DetailDoctor extends Component {
             listAllDayDoctor:[]
         }
     }
-    handleShow = async (patient,id,idTime,date) => {
-        await this.props.history.push(`/booking/${patient[0].idPatient ? patient[0].idPatient : patient[0].idPatient}/${id}/${idTime}/${date}`)
+    handleShow = async (patient,id,idTime,date,status) => {
+        if(status === 0){
+            return
+        }
+        if(status === 1){
+            await this.props.history.push(`/booking/${patient[0].idPatient ? patient[0].idPatient : patient[0].idPatient}/${id}/${idTime}/${date}`)
+        }
+
     }
     handleShowLoginPage = () => {
         this.props.history.push(`/login`)
@@ -45,7 +51,7 @@ class DetailDoctor extends Component {
                     id: resOneDoctorTime.result[0]?.idStaff
                 })
             }
-        }
+        } 
         console.log(this.props)
     }
     buildDataInputAllDayDoctor = (inputData) => {
@@ -53,7 +59,7 @@ class DetailDoctor extends Component {
         if (inputData && inputData.length > 0) {
             inputData.map((item, index) => {
                 let object = {};
-                object.label = `${item.date}`;
+                object.label = `${format(new Date(item.date), 'yyyy-MM-dd')}`;
                 result.push(object)
 
             })
@@ -73,7 +79,9 @@ class DetailDoctor extends Component {
         this.setState({
             selecteDay
         })
+        console.log(selecteDay.label)
         let response = await getAllTimeInDayDoctor(this.props.match.params.id,selecteDay.label);
+        console.log(response)
         if (response && response.success === true) {
             this.setState({
                 listTimeOfDoctor:response.result
@@ -89,6 +97,7 @@ class DetailDoctor extends Component {
         if (detailDoctor.image) {
             imageBase64 = new Buffer(detailDoctor.image, 'base64').toString('binary')
         }
+        console.log(listTimeOfDoctor)
         return (
             <>
                 <HomeHeader
@@ -131,17 +140,20 @@ class DetailDoctor extends Component {
                         </div>
                         <div className='col-6 detail-info-celendar'>
                             <div className='detail-infor-day'>
+                                <p>Chọn ngày khám bệnh</p>
                                 <Select
                                     value={this.state.selecteDay}
                                     onChange={this.handleDay}
                                     options={this.state.listAllDayDoctor}
                                 />
                             </div>
+                            <br/>
                             <div className='row specialty-content-item-celender-content'>
+                                <p>Chọn giờ khám bệnh</p>
                                 {
                                     listTimeOfDoctor && listTimeOfDoctor.map((item, index) => {
                                         return (
-                                            <div className='col-3' onClick={ userInfo ?   () => this.handleShow(userInfo, id,item.idTime,item.date) : () => this.handleShowLoginPage()}>
+                                            <div className='col-3' onClick={ userInfo ?   () => this.handleShow(userInfo, id,item.idTime,item.date,item.active) : () => this.handleShowLoginPage()}>
                                                 <div  className={ item.active === 1 ? 'specialty-content-item-celender-content' : 'specialty-content-item-celender-content-disable'}>
                                                     <p>{item.slotTime}</p>
                                                 </div>

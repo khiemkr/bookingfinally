@@ -44,7 +44,7 @@ class HomeHeader extends Component {
         })
     }
     render() {       
-        console.log(this.props)
+        // console.log(this.props)
         const { processLogout, userInfo } = this.props;
         let infoPatient = userInfo?.[0]?.name;
         return (
@@ -58,7 +58,7 @@ class HomeHeader extends Component {
                         <div className='center-content'>
                             <div onClick={() => this.handleCategory()} className='child-content'>
                                 <div><b>CHUYÊN KHOA</b></div>
-                                <div className='sub-title'>TÌm bác sĩ theo chuyên khoa</div>
+                                <div className='sub-title'>TÌm chuyên khoa khám bệnh</div>
                             </div>
                             <div className='child-content'>
                                 <div><b>DỊCH VỤ</b></div>
@@ -84,8 +84,8 @@ class HomeHeader extends Component {
                             >
                                 <i class="fas fa-user"></i>
                                 <ul className='testshow'>
-                                    <li onClick={() => this.handleShowProfile(userInfo)}>Profile</li>
-                                    <li onClick={processLogout} >LogOut</li>
+                                    <li onClick={() => this.handleShowProfile(userInfo)}>Trang cá nhân</li>
+                                    <li onClick={processLogout} >Đăng xuất</li>
                                 </ul>
                             </div>
                         </div>

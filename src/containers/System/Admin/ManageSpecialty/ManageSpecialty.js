@@ -108,13 +108,13 @@ class ManageSpecialty extends Component {
         return (
             <div className='user-redux-container'>
                 <div className="title" >
-                    THÊM MỚI CHUYEN KHOA
+                    THÊM MỚI CHUYÊN KHOA
                 </div>
                 <div className='user-redux-body'>
                     <div className='container'>
                         <div className='row'>
                             <div className='col-6'>
-                                <label>Ten khoa</label>
+                                <label>Tên chuyên khoa</label>
                                 <input className='form-control' type='text'
                                     value={departmentName}
                                     onChange={(e) => { this.onChangeInput(e, 'departmentName') }}
@@ -122,7 +122,7 @@ class ManageSpecialty extends Component {
                                 />
                             </div>
                             <div className='col-6'>
-                                <label>Gia dich vu</label>
+                                <label>Giá dịch vụ</label>
                                 <input className='form-control' type='text'
                                     value={price}
                                     onChange={(e) => { this.onChangeInput(e, 'price') }}
@@ -130,14 +130,14 @@ class ManageSpecialty extends Component {
                                 />
                             </div>
                             <div className='col-6'>
-                                <label>Mo ta</label>
+                                <label>Mô tả chuyên khoa</label>
                                 <input className='form-control' type='text'
                                     value={description}
                                     onChange={(e) => { this.onChangeInput(e, 'description') }}
                                 />
                             </div>
                             <div className='col-6'>
-                                <label>Image</label>
+                                <label>Hình ảnh đại diện</label>
                                 <div className='preview-img-container'>
                                     <input id='previewImg' type='file' hidden
                                         onChange={(e) => this.handleOnchangeImage(e)}
@@ -152,7 +152,7 @@ class ManageSpecialty extends Component {
                                 <button className={this.state.action === CRUD_ACTIONS.EDIT ? 'btn btn-warning' : 'btn btn-primary'}
                                     onClick={() => this.handleSaveUser()}
                                 >
-                                    {this.state.action === CRUD_ACTIONS.EDIT ? 'Save Change' : 'Save'}
+                                    {this.state.action === CRUD_ACTIONS.EDIT ? 'Save Change' : 'LƯU THÔNG TIN'}
                                 </button>
                             </div>
                             <div className='col-12 mb-5'>
@@ -161,16 +161,15 @@ class ManageSpecialty extends Component {
                         </div>
                         <div className="row doctor-workshift-content ">
                             <div className="col-12">
-                                <p><b> Danh sach chuyen khoa</b></p>
+                                <p><b>Danh sách chuyên khoa</b></p>
                                 <table id="customers">
                                     <tbody>
                                         <tr >
-                                            <th>Ma chuyen khoa</th>
-                                            <th>Ten chuyen khoa</th>
-                                            <th>Mo ta</th>
-                                            <th>Gia dich vu</th>
-                                            <th>Hinh anh</th>
-                                            {/* <th>Tac vu</th> */}
+                                            <th>Mã chuyên khoa</th>
+                                            <th>Tên chuyên khoa</th>
+                                            <th>Mô tả chuyên khoa</th>
+                                            <th>Giá dịch vụ</th>
+                                            <th>Hình ảnh</th>
                                         </tr>
                                         {
                                             arrSpecialty && arrSpecialty.map((item, index) => {
@@ -182,13 +181,8 @@ class ManageSpecialty extends Component {
                                                         <td>{item.idSpecialist}</td>
                                                         <td>{item.departmentName}</td>
                                                         <td>{item.description}</td>
-                                                        <td>{item.price}</td>
+                                                        <td>{item.price} VND</td>
                                                         <td><img src = {imageBase641} style={{width:'50px' , height :'50px'}} /></td>
-
-                                                        {/* <td>
-                                                            <button className='btn-edit' onClick={() => this.handleEditUser(item)}><i className='fas fa-pencil-alt'></i></button>
-                                                            <button className='btn-delete' onClick={() => this.handleDeleteUser(item)}><i className='fas fa-trash'></i></button>
-                                                        </td> */}
                                                     </tr>
                                     )
                                             })

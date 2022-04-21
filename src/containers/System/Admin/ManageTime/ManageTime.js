@@ -41,14 +41,14 @@ class ManageTime extends Component {
         if (isValid === false) return;
             this.props.createNewExamination({
                 slotTime: this.state.slotTime,
-                currentDate: this.state.currentDate,
+                // currentDate: this.state.currentDate,
             })
             console.log('kiem tra trang thai',this.state)
     }
 
     checkValidateInput = () => {
         let isValid = true;
-        let arrCheck = ['slotTime', 'currentDate']
+        let arrCheck = ['slotTime']
         for (let i = 0; i < arrCheck.length; i++) {
             if (!this.state[arrCheck[i]]) {
                 isValid = false;
@@ -110,33 +110,33 @@ class ManageTime extends Component {
         return (
             <div className='user-redux-container'>
                 <div className="title" > 
-                    THÊM MỚI GiO KHAM BENH
+                    THÊM MỚI GiỜ KHÁM BỆNH
                 </div>
                 <div className='user-redux-body'>
                     <div className='container'>
                         <div className='row'>
-                            <div className='col-6'>
-                                <label>Gio Kham benh</label>
+                            <div className='col-12'>
+                                <label>Giờ khám bệnh</label>
                                 <input className='form-control' type='text'
                                     value={slotTime}
                                     onChange={(e) => { this.onChangeInput(e, 'slotTime') }}
                                     disabled={this.state.action === CRUD_ACTIONS.EDIT ? true : false}
                                 />
                             </div> 
-                            <div className='col-6'>
-                                <label>Ngay Kham benh</label>
+                            {/* <div className='col-6'>
+                                <label>Ngày khám bệnh</label>
                                 <DatePicker
                                     onChange={this.handleOnchageDatePicker}
                                     className='form-control'
                                     value={this.state.currentDate?.[0]}
                                     minDate={new Date()}
                                 />
-                            </div>                  
+                            </div>                   */}
                             <div className='col-12 mt-3'>
                                 <button className={this.state.action === CRUD_ACTIONS.EDIT ? 'btn btn-warning' : 'btn btn-primary'}
                                     onClick={() => this.handleSaveUser()}
                                 >
-                                    {this.state.action === CRUD_ACTIONS.EDIT ? 'Save Change' : 'Save'}
+                                    {this.state.action === CRUD_ACTIONS.EDIT ? 'Save Change' : 'LƯU THÔNG TIN'}
                                 </button>
                             </div>
                             <div className='col-12 mb-5'>
@@ -145,14 +145,14 @@ class ManageTime extends Component {
                         </div>
                         <div className="row doctor-workshift-content ">
                         <div className="col-12">
-                            <p><b> Cac Khung Gio</b></p>
+                            <p><b>Các khung giờ khám bệnh</b></p>
                             <table id="customers">
                                 <tbody>
                                     <tr >
-                                        <th>Ma</th>
-                                        <th>Khung Gio</th>
-                                        <th>Ngay</th>
-                                        <th>Tac vu</th>
+                                        <th>Mã</th>
+                                        <th>Khung giờ</th>
+                                        {/* <th>Ngày khám</th> */}
+                                        {/* <th>Tac vu</th> */}
                                     </tr>
                                     {
                                             arrExamanition && arrExamanition.map((item, index) => {
@@ -160,13 +160,13 @@ class ManageTime extends Component {
                                                     <tr key={index}>
                                                         <td>{item.idTime}</td>
                                                         <td>{item.slotTime}</td>
-                                                        <td>{item.currentDate}</td>
+                                                        {/* <td>{item.currentDate}</td> */}
                                                         
-
+{/* 
                                                         <td>
                                                             <button className='btn-edit' onClick={() => this.handleEditUser(item)}><i className='fas fa-pencil-alt'></i></button>
                                                             <button className='btn-delete' onClick={() => this.handleDeleteUser(item)}><i className='fas fa-trash'></i></button>
-                                                        </td>
+                                                        </td> */}
                                                     </tr>
                                                 )
                                             })

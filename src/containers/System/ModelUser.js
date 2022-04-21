@@ -64,7 +64,7 @@ class ModelUser extends Component {
         console.log(this.props.user);
         SendEmailConfirm(this.props.user.email,this.props.user.idBooking);
     }
-    render() {
+    render() { 
         let infoUser = this.props.user
         console.log(this.props)
         return (

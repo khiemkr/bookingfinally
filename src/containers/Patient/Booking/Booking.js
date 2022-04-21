@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import HomeHeader from '../../HomePage/HomeHeader';
-import { getDetailPatient, getDetailInfoDoctor, getOneExamination, getInfoBooking, getInfoBookingOnePatient, getHistoryBookingOnePatient } from '../../../services/userService';
+import { getDetailPatient,
+     getDetailInfoDoctor, 
+     getOneExamination, 
+     getInfoBooking, 
+     getInfoBookingOnePatient, 
+     getHistoryBookingOnePatient,
+    getInfoPayment, 
+    ProcessPayment} from '../../../services/userService';
 import * as actions from '../../../store/actions';
 import { CRUD_ACTIONS, CommonUtils } from '../../../utils';
 import './Booking.scss'
 import HomeFooter from '../../HomePage/Section/HomeFooter';
+import Select from 'react-select';
+import { compareAsc, format } from 'date-fns'
 class Booking extends Component {
 
     constructor(props) {
@@ -15,12 +24,13 @@ class Booking extends Component {
             detailPatient: {},
             slotTime: {},
             arrBooking: [],
-            arrHistoryBooking: []
+            arrHistoryBooking: [],
+            listPayment:[],
         }
     }
 
     async componentDidMount() {
-        console.log(this.props)
+        // console.log(this.props)
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
             let id = this.props.match.params.id;
             let res = await getDetailPatient(id);
@@ -41,7 +51,7 @@ class Booking extends Component {
             if (this.props.match && this.props.match.params && this.props.match.params.idTime) {
                 let idTime = this.props.match.params.idTime;
                 let resSlotTime = await getOneExamination(idTime);
-                console.log(resSlotTime)
+                // console.log(resSlotTime)
                 if (resSlotTime && resSlotTime.success === true) {
                     this.setState({
                         slotTime: resSlotTime.result[0]
@@ -51,14 +61,36 @@ class Booking extends Component {
         }
         await this.getBooking();
         await this.getHistoryBooking();
+        this.props.fetAllPaymentRedux();
 
     }
     getBooking = async () => {
         let response = await getInfoBookingOnePatient(this.props.match.params.id);
-        console.log(response)
+        // console.log(response)
         if (response && response.success === true) {
             this.setState({
                 arrBooking: response.result
+            })
+        }
+    }
+    buildDataInputSelectPayment = (inputData) => {
+        let result = [];
+        if (inputData && inputData.length > 0) {
+            inputData.map((item, index) => {
+                let object = {};
+                object.label = `${item.namePayment}`
+                object.value = item.idPayment;
+                result.push(object)
+
+            })
+        }
+        return result
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.allPayment !== this.props.allPayment) {
+            let dataSelectPayment = this.buildDataInputSelectPayment(this.props.allPayment)
+            this.setState({
+                listPayment: dataSelectPayment
             })
         }
     }
@@ -71,23 +103,41 @@ class Booking extends Component {
             })
         }
     }
-    handlebooking = () => {
-        this.props.createNewBooking({
-            idTime: this.props.match.params.idTime,
-            idStaff: this.props.match.params.idDoctor,
-            idPatient: this.props.match.params.id,
-            idSpecialist: this.state.detailDoctor.idSpecialist,
-            date: this.props.match.params.date
-        })
+    handlebooking = () => {  
+        if(this.state.selectedPayment.value === 1){
+            this.props.createNewBooking({
+                idTime: this.props.match.params.idTime,
+                idStaff: this.props.match.params.idDoctor,
+                idPatient: this.props.match.params.id,
+                idSpecialist: this.state.detailDoctor.idSpecialist,
+                date: this.props.match.params.date,
+                idPayment: this.state.selectedPayment.value
+            })
+            window.location.replace('http://localhost:8888/order/create_payment_url')
+        }
+        else{
+            this.props.createNewBooking({
+                idTime: this.props.match.params.idTime,
+                idStaff: this.props.match.params.idDoctor,
+                idPatient: this.props.match.params.id,
+                idSpecialist: this.state.detailDoctor.idSpecialist,
+                date: this.props.match.params.date,
+                idPayment: this.state.selectedPayment.value
+            })
+        }
     }
+    handleChangePayment = async (selectedPayment) => {
+        this.setState({
+            selectedPayment
+        })
 
+    }
     render() {
         let detailPatient = this.state.detailPatient;
         let detailDoctor = this.state.detailDoctor;
         let slotTime = this.state.slotTime.slotTime;
         let arrBooking = this.state.arrBooking;
         let arrHistoryBooking = this.state.arrHistoryBooking;
-        console.log(this.props)
         let imageBase64 = '';
         if (detailDoctor.image) {
             imageBase64 = new Buffer(detailDoctor.image, 'base64').toString('binary')
@@ -119,13 +169,22 @@ class Booking extends Component {
                             </div>
                             <div className='booking-info-booking'>
                                 <div className='booking-info-booking-time'>
-                                    <p>{this.props.match.params.date}</p>
+                                    <p>{format(new Date(this.props.match.params.date), 'dd-MM-yyyy')}</p>
                                     <span>{slotTime}</span>
                                 </div>
                                 <div className='booking-info-booking-price'>
                                     <span>{detailDoctor.price} VND</span>
                                 </div>
                             </div>
+                            <div className='booking-info-payment'>
+                                <span>Chọn phương thức thanh toán</span>
+                                <Select
+                                    value={this.state.selectedPayment}
+                                    onChange={this.handleChangePayment}
+                                    options={this.state.listPayment}
+                                />
+                            </div>
+                            <br/>
                             <div className='booking-info-booking-btn'>
                                 <button className='btnsucces'
                                     onClick={() => this.handlebooking()}
@@ -142,27 +201,27 @@ class Booking extends Component {
                                 <div className='col-7 patient-container-booking-info'>
                                     <p><b>Tên bệnh nhân</b>: {detailPatient.name}</p>
                                     <p><b>Email</b>: {detailPatient.email}</p>
-                                    <p><b>Giới tính</b> {detailPatient.gender}</p>
-                                    <p><b>Địa chỉ</b>{detailPatient.address}</p>
+                                    <p><b>Giới tính</b>: {detailPatient.gender}</p>
+                                    <p><b>Địa chỉ</b>: {detailPatient.address}</p>
                                     <p><b>Khám bệnh</b>: Khám thần kinh</p>
-                                    <p><b>Ngày khám bệnh</b>: 9-3-2-2022</p>
+                                    <p><b>Ngày khám bệnh</b>: {format(new Date(this.props.match.params.date), 'dd-MM-yyyy')}</p>
                                     <p><b>Địa chỉ khám bênh</b>: 3-2, Xuân Khánh, Ninh Kiều, Cần Thơ, Việt Nam</p>
                                     <p><b>Ghi chú</b>: Quý bệnh nhân đến khám theo giờ trên lịch đã đăng kí sẽ có nhân viên tư vấn hỗ trợ</p>
                                 </div>
                                 <div className='col-5 patient-container-booking-img'>
-                                    
+
                                 </div>
                             </div>
                             <div className='patient-container-header'><b>HỒ SƠ BỆNH ÁN</b></div>
                             <div className='row patient-container-information'>
-                                <p>Lịch khám benh</p>
+                                <p>Lịch khám bệnh</p>
                                 <table class="table table-striped patient-container-information-table">
                                     <thead>
                                         <tr>
                                             <th scope="col">Ngày khám</th>
-                                            <th scope="col">Gio khám</th>
+                                            <th scope="col">Giờ khám</th>
                                             <th scope="col">Bác sĩ</th>
-                                            <th scope="col">Trang Thai</th>
+                                            <th scope="col">Trạng thái</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -172,7 +231,7 @@ class Booking extends Component {
                                                     <td>{item.date}</td>
                                                     <td>{item.slotTime}</td>
                                                     <td>{item.nameDoctor}</td>
-                                                    <td>{item.active === 1 ? 'Dang cho xu li' : 'Da xu li'}</td>
+                                                    <td>{item.active === 1 ? 'Đang chờ xác nhận' : 'Đã xác nhận'}</td>
                                                 </tr>
                                             )
                                         })}
@@ -214,12 +273,14 @@ class Booking extends Component {
 
 const mapStateToProps = state => {
     return {
+        allPayment: state.admin.allPayment
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         createNewBooking: (data) => dispatch(actions.createNewBooking(data)),
+        fetAllPaymentRedux: () => dispatch(actions.fetchAllPayment()),
     };
 };
 

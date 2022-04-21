@@ -52,10 +52,11 @@ class PDF extends Component {
     render() {
         let infoUser = this.props.user
         console.log(this.props)
-        return (
+        return ( 
             <React.Fragment>
                 <Modal
                      isOpen={this.props.isOpen}
+                     toggle={() => { this.toggle() }}
                      centered
                 >
                     <PDFViewer style={styles.viewer}>
@@ -64,7 +65,7 @@ class PDF extends Component {
                             {/*render a single page*/}
                             <Page size="A4" style={styles.page}>
                                 <View style={styles.section}>
-                                    <Text style={styles.textheader}>DON KHÁM BENH</Text>
+                                    <Text style={styles.textheader}>DON KHAM BENH</Text>
                                 </View>
                                 <View style={styles.section}>
                                     

@@ -58,7 +58,7 @@ class CategorySelect extends Component {
         if (detailSpecialty.image) {
             imageBase64 = new Buffer(detailSpecialty.image, 'base64').toString('binary')
         }
-        return (
+        return ( 
             <>
                 <HomeHeader
                     isShowBanner={false}
@@ -106,9 +106,6 @@ class CategorySelect extends Component {
                                         <div className='col-6 specialty-content-item-celender'>
                                             <div className='row'>
                                                 <div className='col-6'>
-                                                    {/* <div className='specialty-content-item-celender-header'>
-                                                        <span><i class="fas fa-calendar"></i>LỊCH KHÁM BỆNH</span>
-                                                    </div> */}
                                                     <div className='specialty-content-item-celender-price'>
                                                         <span>GIÁ DỊCH VỤ: </span>
                                                         <p>{detailSpecialty.price} VND</p>
@@ -121,7 +118,7 @@ class CategorySelect extends Component {
                                             <button
                                                 onClick={() => this.handlShowdetail(item)}
                                                 className='specialty-content-item-celender-btn-detail'>
-                                                Xem chi tiet
+                                                Xem chi tiết
                                             </button>
                                         </div>
                                     </div>

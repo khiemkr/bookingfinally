@@ -42,7 +42,7 @@ class ManageHistory extends Component {
                 <div className='doctor-workshift-container'>
                     <div className="row doctor-workshift-content ">
                         <div className="col-12">
-                            <p><b> Hồ Sơ bệnh án </b></p>
+                            <p style={{color:'#4CAF50'}}><b> Hồ Sơ bệnh án </b></p>
                             <table id="customers">
                                 <tbody>
                                     <tr >

@@ -19,13 +19,13 @@ export const adminMenu = [
     },
     {
         //quan li ke hoach kham benh cua bac si
-        name:'Lich Kham benh bac si',
+        name:'Lịch khám bệnh bác sĩ',
         menus: [
             {
-                name: 'Cac ca kham benh', link: '/staff/manage-staff-booking'
+                name: 'Các ca khám bệnh', link: '/staff/manage-staff-booking'
             },
             {
-                name: 'Them ca kham benh', link: '/system/manage-workshift'
+                name: 'Thêm ca khám bệnh', link: '/system/manage-workshift'
             }
           
         ]
@@ -61,11 +61,11 @@ export const adminMenu = [
 ]; 
 export const DoctorMenu = [
     { //quan li nguoi dung
-        name: 'Thoong tin cong tac',
+        name: 'Thông tin công tác',
         menus: [
             {
                 //quan li ke hoach kahm benh
-                name: 'Lich kham benh',
+                name: 'Lịch khám bệnh',
                 link:'/doctor/manage-schedule'
             }
         ]
@@ -73,11 +73,11 @@ export const DoctorMenu = [
 ];
 export const StaffMenu = [
     { //quan li Nhan vien
-        name: 'Thong tin cong tac',
+        name: 'Thông tin công tác',
         menus: [
             {
                 //quan li ke hoach kahm benh
-                name: 'Lich Kham benh',
+                name: 'Lịch khám bệnh',
                 link:'/staff/manage-staff-booking'
             }
         ]

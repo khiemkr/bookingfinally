@@ -24,10 +24,12 @@ class Dashboard extends Component {
         return (
             <React.Fragment>
                 <div className='doctor-workshift-container'>
+                            <p><b>DASHBOARD</b></p>
                     <div className="row doctor-workshift-content ">
                         <div className="col-12">
-                            <p><b>DASHBOARD</b></p>
-                        
+                            <div className="row">
+                            <div className="col-12 dashboard_logo_right"></div>
+                            </div>
                         </div>
                     </div>
                 </div>

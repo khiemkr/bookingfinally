@@ -15,7 +15,8 @@ import {
     createDoctorInfo,
     getAllExamination,createDoctorTime,createbooking,getAllDayDoctor,createhistory,
     getAllDay,
-    getAllSlotTime
+    getAllSlotTime,
+    getInfoPayment
 
 } from '../../services/userService';
 import { toast } from 'react-toastify';
@@ -129,10 +130,15 @@ export const createNewBooking = (data) => {
         try {
             let res = await createbooking(data);
             console.log('check', res)
-            if (res && res.success === true) {
-                toast.success('Dat lich thanh cong');
-                alert('Lich kham da duoc datj hej thoong se xu li trong thoi gian som nhat')
+            if (res && res.success === true && res.message ==='Booking success') {
+                toast.success('Đặt lịch thành công');
+                alert('Lịch khám đã được đạt hệ thống sẽ xử lí trong thời gian sớm nhất')
                 dispatch(saveBookingSuccess());
+                dispatch(fetchAllUserStart());
+            } 
+            if (res && res.success === true && res.message ==='tontai') {
+                toast.warn('Không thể đặt cùng lúc 1 khung giờ với 2 bác sĩ, vui lòng chọn giờ khám khác!!!!!');
+                // dispatch(saveBookingSuccess());
                 dispatch(fetchAllUserStart());
             } else {
                 dispatch(saveBookingFailed());
@@ -161,13 +167,13 @@ export const createNewDoctorTime = (data) => {
         try {
             let res = await createDoctorTime(data);
             console.log('check', res)
-            if (res && res.success === true && res.message === 'Add time success') {
-                toast.success('Create new time doctor success')
+            if (res && res.success === true && res.message === 'Add time success 1' || res && res.success === true && res.message === 'Add time success') {
+                toast.success('Tạo mới giờ khám bác sĩ thành công')
                 dispatch(saveDoctorTimeSuccess());
                 dispatch(fetchAllUserStart());
             }
             if (res && res.success === true && res.message === 'Time revered') {
-                toast.warn('Da ton tai gio kham bac si')
+                toast.warn('Đã tồn tại giờ khám bác sĩ')
                 // dispatch(saveDoctorTimeSuccess());
                 // dispatch(fetchAllUserStart());
             }
@@ -195,10 +201,13 @@ export const createNewUserPatient = (data) => {
         try {
             let res = await createNewPatient(data);
             console.log('check', res)
-            if (res && res.success === true) {
-                toast.success('Create new patient success')
+            if (res && res.success === true && res.message==='Create success' ) {
+                toast.success('Đăng kí tài khoản mới thành công')
                 dispatch(savePatientSuccess());
                 dispatch(fetchAllUserStart());
+            } 
+            if (res && res.success === true && res.message==='Email already exist') {
+                toast.warn('Tài khoản đã tồn tại')
             } else {
                 dispatch(savePatientFailed());
             }
@@ -223,7 +232,7 @@ export const createDoctorDetailInfo = (data) => {
             let res = await createDoctorInfo(data);
             console.log('check', res)
             if (res && res.success === true) {
-                toast.success('Create new DetailDoctor success')
+                toast.success('Thêm thông tin bác sĩ thành công')
                 dispatch(saveDoctorSuccess());
                 dispatch(fetchAllUserStart());
             } else {
@@ -279,7 +288,7 @@ export const createNewHistory = (data) => {
             let res = await createhistory(data);
             console.log('check', res)
             if (res && res.success === true) {
-                toast.success('Duyet don thanh cong')
+                toast.success('Duyệt đơn khám bệnh thành công')
                 dispatch(saveHistorySuccess());
                 dispatch(fetchAllUserStart());
             } else {
@@ -306,10 +315,9 @@ export const createNewExaminationHour = (data) => {
         try {
             let res = await createNewExaminationHourUserService(data);
             console.log('check', res)
-            if (res && res.success === true) {
-                toast.success('Create new Hour success')
+            if (res && res.success === true ) {
+                toast.success('Thêm giờ thành công giờ khám mới')
                 dispatch(saveHourSuccess());
-                // dispatch(fetchAllUserStart());
             } else {
                 dispatch(saveHourFailed());
             }
@@ -400,7 +408,30 @@ export const fetchAllSlotTime = () => {
         }
     }
 }
-
+// lay toan bo phuong thuc thanh toan
+export const fetchAllPayment = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getInfoPayment();
+            if (res && res.success === true) {
+                console.log(res)
+                dispatch({
+                    type: actionTypes.FETCH_ALL_PAYMENT_SUCCESS,
+                    dataAllPayment: res.result,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_PAYMENT_FAILED,
+                });
+            }
+        } catch (e) {
+            dispatch({
+                type: actionTypes.FETCH_ALL_PAYMENT_FAILED,
+            });
+            console.log(e)
+        }
+    }
+}
 
 // lay toan bo ngay kham cuar mot bac si
 export const fetchAllDayDoctor = (id) => {

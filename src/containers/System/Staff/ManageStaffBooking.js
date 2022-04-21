@@ -32,11 +32,15 @@ class ManageSchedule extends Component {
         }
         // console.log('get user from node.js', response.result)
     }
-    handleProcess = (user) =>{
-        this.setState({
-            isOpenModalUser:true,
-            infoUser:user
-        })
+    handleProcess = (user,active) =>{
+        if(active === 0){
+            return
+        }else{
+            this.setState({
+                isOpenModalUser:true,
+                infoUser:user
+            })
+        }
     }
     toggleUserModal = () => {
         this.setState({
@@ -77,7 +81,7 @@ class ManageSchedule extends Component {
                                                 <td>{item.namePatient}</td>
                                                 <td>{item.nameDoctor}</td>
                                                 <td>
-                                                    <button onClick={() => this.handleProcess(item)}  className='btn-edit' > {item.active === 1 ? <i className='fas fa-pencil-alt'></i> : <i class="fas fa-check"></i> }</button>
+                                                    <button onClick={() => this.handleProcess(item,item.active)}  className='btn-edit' > {item.active === 1 ? <i className='fas fa-pencil-alt'></i> : <i class="fas fa-check"></i> }</button>
                                                 </td>
                                             </tr>
                                         )
@@ -87,8 +91,8 @@ class ManageSchedule extends Component {
                         </div>
                     </div>
                 </div>
-                <HomeFooter/>
                
+                <HomeFooter/>
             </React.Fragment>
         )
     }

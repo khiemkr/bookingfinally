@@ -13,7 +13,8 @@ const initialState = {
     allScheduleTime: [],
     allDayDoctors: [],
     allDay: [],
-    allSlotTime: []
+    allSlotTime: [],
+    allPayment: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -140,6 +141,16 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_ALL_SLOTTIME_FAILED:
             state.dataAllSlotTime = [];
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_PAYMENT_SUCCESS:
+            state.allPayment = action.dataAllPayment;
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_PAYMENT_FAILED:
+            state.dataAllPayment = [];
             return {
                 ...state,
             }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Specialty.scss';
+import './HandBook.scss';
+
 import Slider from 'react-slick';
 class HandBook extends Component {
     render() {
@@ -11,8 +13,8 @@ class HandBook extends Component {
                        <span className='title-section'>Cam Nang</span>
                        <button className='btn-section'>Xem Them</button>
                    </div>
-                   <div className='section-body'>
-                        <Slider {...this.props.settings} >
+                   <div className='section-body handbook-container'>
+                        <Slider {...this.props.settings2} >
                             <div className='section-customize'>
                                 <div className='bg-image section-handbook'/>
                                 <div>Tieu Hoa</div>

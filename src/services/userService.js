@@ -120,7 +120,7 @@ const getAllDayDoctor = (inputId) =>{
 }
 // lay tat ca gio kham cuar 1 ngay kham cua mot bac si
 const getAllTimeInDayDoctor = (inputId,inputdate) =>{
-    return axios.get(`/api/doctorTime/getAllTimeInDay?idStaff=${inputId}&date=${inputdate}`)
+    return axios.get(`/api/doctorTime/getAllTimeInDay?idStaff=${inputId}&date=${inputdate}`) 
 }
 // dat lich
 const createbooking = (data) =>{
@@ -149,6 +149,14 @@ const getInfoBookingOneDoctor = (inputId) =>{
 // gui email xac nhan lich
 const SendEmailConfirm = (inputEmail,inputId) =>{
     return axios.post(`/api/email/send?email=${inputEmail}&idBooking=${inputId}`)
+}
+// lay toan pho phuong thuc thanh toan
+const getInfoPayment = () =>{
+    return axios.get(`/api/booking/getAllPaymentMethod`) 
+}
+// goi api thanh toan online
+const ProcessPayment = () =>{
+    return axios.get(`http://localhost:8888/order/create_payment_url`) 
 }
 
 
@@ -223,5 +231,8 @@ export {
     getAllSlotTime ,
     getHistoryBookingOnePatient,
     getInfoBookingOneDoctor,
-    SendEmailConfirm
+    SendEmailConfirm,
+    getInfoPayment,
+    ProcessPayment
+
 }

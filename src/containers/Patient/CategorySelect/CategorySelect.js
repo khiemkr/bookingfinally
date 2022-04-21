@@ -5,14 +5,15 @@ import './CategorySelect.scss'
 import HomeFooter from '../../HomePage/Section/HomeFooter';
 import { Zoom } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
-import ab1 from '../../../assets/about/ab1.jpeg';
-import ab2 from '../../../assets/about/ab2.jpeg';
-import ab3 from '../../../assets/about/ab3.jpeg';
-import ab4 from '../../../assets/about/ab4.jpeg';
+import ab1 from '../../../assets/specialty/chuyen-khoa-tim-mach.jpg';
+import ab2 from '../../../assets/specialty/khoa san.jpg';
+import ab3 from '../../../assets/specialty/khoa_nhi_mới.jpg';
+import ab4 from '../../../assets/specialty/khoa-xuong-khop-bv-viet-duc-1.jpg';
+import ab5 from '../../../assets/specialty/tieuhoa.jpg';
 import { getAllSpecialist } from '../../../services/userService'
 
 const images = [
-    ab1, ab2, ab3, ab4
+    ab1, ab2, ab3, ab4,ab5
 ];
 class CategorySelect extends Component {
 
@@ -24,8 +25,8 @@ class CategorySelect extends Component {
         }
     }
     async componentDidMount() {
-        await this.getAllSpecialist(); 
-        
+        await this.getAllSpecialist();
+
     }
     handleview = (specialist) => {
         this.props.history.push(`/specialty/${specialist.idSpecialist}`)
@@ -43,7 +44,7 @@ class CategorySelect extends Component {
         // console.log('get user from node.js', response.result)
     }
     render() {
-        let arrSpecialty = this.state.arrSpecialty 
+        let arrSpecialty = this.state.arrSpecialty
         console.log(this.state)
         return (
             <>
@@ -69,7 +70,7 @@ class CategorySelect extends Component {
                             <nav class="category">
                                 <h3 class="category-sidebar-heading">
                                     <i class="fas fa-align-justify"></i>
-                                    Trang chủ
+                                    Danh sách chuyên khoa
                                 </h3>
                                 <ul class="category-list">
                                     {
@@ -82,20 +83,23 @@ class CategorySelect extends Component {
                                         })
                                     }
                                 </ul>
-                                {/* <div  id = "Cateimg"class="home-product-item__img" style="background-image:url(https://cf.shopee.vn/file/4fec096d5d273e37e7fc7bb14d24173f);"></div>
-                                <div class="home-product-item__img" style="background-image:url(https://www.ontopvn.com/wp-content/uploads/2020/05/shop-ban-quan-ao-danh-cho-nam-o-da-nang.jpg);"></div> */}
+                                <Zoom scale={0.4}>
+                                    {
+                                        images.map((each, index) => <img key={index} style={{ width: "100%", height: '300px', objectFit: 'cover' }} src={each} />)
+                                    }
+                                </Zoom>
                             </nav>
                         </div>
                         <div className='col-9 category-content-list' >
                             {
                                 arrSpecialty && arrSpecialty.map((item, index) => {
                                     let imageBase64 = '';
-                                    imageBase64 = new Buffer(item.image,'base64').toString('binary')
+                                    imageBase64 = new Buffer(item.image, 'base64').toString('binary')
                                     return (
                                         <>
                                             <div onClick={() => this.handleview(item)} className='row category-content-list-item'>
                                                 <div className='col-5 category-content-list-item-img '
-                                                    style={{ backgroundImage: `url(${imageBase64})`}}
+                                                    style={{ backgroundImage: `url(${imageBase64})` }}
                                                 >
 
                                                 </div>

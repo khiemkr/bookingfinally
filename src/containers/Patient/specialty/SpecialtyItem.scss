@@ -9,6 +9,8 @@
         .specialty-banner-opacity{
             background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.9));
             height: 100%;
+            box-shadow: 0 0 2px #4caf50;
+            margin-top: 80px;
             .specialty-intro{
                 width: 1335px;
                 margin: 0 auto;
@@ -16,7 +18,7 @@
                     font-size: 40px;
                     font-family: auto;
                     color: #4caf50;
-                    text-shadow: 0.5px 0.5px 0.5px gray;
+                    // text-shadow: 0.5px 0.5px 0.5px gray;
                 }
                 .specialty-description{
                     font-size: 20px;
@@ -34,6 +36,7 @@
                 height: 40px;
                 color: #4caf50;
                 border-bottom: 1px solid #4caf50;
+                font-family: auto;
             }
         }
         .specialty-content-item{ 
@@ -66,6 +69,7 @@
                     span{
                         color: #4caf50;
                         font-size: 20px;
+                        font-family: auto;
                     }
                     p{
                         font-size: 14px;
@@ -129,6 +133,7 @@
                     color: white;
                     position: relative;
                     top: -74px;
+                    font-family: auto;
                     &:hover{
                         background-color: white;
                         color: #4caf50;

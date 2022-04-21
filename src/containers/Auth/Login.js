@@ -164,7 +164,7 @@ class Login extends Component {
             gender: this.state.gender,
             date : this.state.date,
         })
-        console.log(this.state)
+        // window.location.reload();
     }
     
     render() {
@@ -251,6 +251,7 @@ class Login extends Component {
                         />
                         <input type="button" value="Đăng kí"
                             onClick={() => this.handleregister()}
+                            
                         />
                     </div>
                 </div>

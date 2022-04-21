@@ -21,7 +21,15 @@ class HomePage extends Component {
             infinite: false,
             speed:500,
             slidesToShow:4,
-            slidesToScroll:1,
+            slidesToScroll:1, 
+            // slickGoTo: this.handleAfterChange
+        };
+        let settings2 = {
+            dots: false,
+            infinite: false,
+            speed:500,
+            slidesToShow:2,
+            slidesToScroll:1, 
             // slickGoTo: this.handleAfterChange
         };
         return (
@@ -31,7 +39,7 @@ class HomePage extends Component {
                 <Specialty settings = {settings}/>
                 {/* <MedicalFacility settings = {settings}/> */}
                 <OutStandingDoctor settings = {settings}/>
-                {/* <HandBook settings = {settings}/> */}
+                <HandBook settings2 = {settings2}/>
                 <HomeFooter/>
             </div>
         );

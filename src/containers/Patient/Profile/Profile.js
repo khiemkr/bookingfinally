@@ -4,7 +4,7 @@ import HomeHeader from '../../HomePage/HomeHeader';
 import './Profile.scss'
 import HomeFooter from '../../HomePage/Section/HomeFooter';
 import { getDetailPatient, getInfoBookingOnePatient, getHistoryBookingOnePatient } from '../../../services/userService'
-
+import { compareAsc, format } from 'date-fns'
 class Booking extends Component {
 
     constructor(props) {
@@ -72,10 +72,10 @@ class Booking extends Component {
                                 <b>SƠ YẾU LÝ LỊCH</b>
                             </div>
                             <div className='row patient-container-booking'>
-                                <div className='col-7 patient-container-booking-info'>
+                                <div className='patient-container-booking-info'>
                                     <p><b>Tên bệnh nhân</b>: {detailPatient.name}</p>
                                     <p><b>Email</b>: {detailPatient.email}</p>
-                                    <p><b>Giới tính</b> {detailPatient.gender}</p>
+                                    <p><b>Giới tính</b>: {detailPatient.gender}</p>
                                     <p><b>Số Điện Thoại</b>: {detailPatient.phoneNumber}</p>
                                     <p><b>Ngày sinh</b>: {detailPatient.date}</p>
                                     <p><b>Địa chỉ</b>:{detailPatient.address}</p>
@@ -89,17 +89,17 @@ class Booking extends Component {
                                 <table class="table table-striped patient-container-information-table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Ngay kham</th>
-                                            <th scope="col">Gio</th>
-                                            <th scope="col">Bác sĩ phu trach</th>
-                                            <th scope="col">Trang thai</th>
+                                            <th scope="col">Ngày khám</th>
+                                            <th scope="col">Giờ</th>
+                                            <th scope="col">Bác sĩ phụ trách</th>
+                                            <th scope="col">Trạng thái</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {arrBooking && arrBooking.map((item, index) => {
                                             return (
                                                 <tr>
-                                                    <th>{item.date}</th>
+                                                    <td>{format(new Date(item.date), 'dd-MM-yyyy')}</td>
                                                     <td>{item.slotTime}</td>
                                                     <td>{item.nameDoctor}</td>
                                                     <td>{item.active === 1 ? 'Đang chờ xử lí' : 'Đã xử lí'}</td>
@@ -117,7 +117,7 @@ class Booking extends Component {
                                             <th scope="col">Bác sĩ phụ trách</th>
                                             <th scope="col">Giờ khám bệnh</th>
                                             <th scope="col">Ngày khám bệnh</th>
-                                            <th scope="col">Mô tả</th>
+                                            {/* <th scope="col">Mô tả</th> */}
 
                                         </tr>
                                     </thead>
@@ -127,8 +127,8 @@ class Booking extends Component {
                                                 <tr>
                                                     <td>{item.nameDoctor}</td>
                                                     <td>{item.slotTime}</td>
-                                                    <td>{item.date}</td>
-                                                    <td>{item.active}</td>
+                                                    <td>{format(new Date(item.date), 'dd-MM-yyyy')}</td>
+                                                    {/* <td>{item.active}</td> */}
                                                 </tr>
 
                                             )

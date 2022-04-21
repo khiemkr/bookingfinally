@@ -79,8 +79,8 @@ class OutStandingDoctor extends Component {
                                             />
                                             </div>
                                             <div className='position text-center'>
-                                                <div>{item.name}</div>
-                                                <div>Tieu hoa</div>
+                                                <div style={{fontSize:'20px',color:'#4caf50'}}>{item.name}</div>
+                                                <div>{item.departmentName}</div>
                                             </div>             
                                         </div>
                                     </div >         
